@@ -12,7 +12,7 @@ function read(name) {
 }
 
 test('control', function (assert) {
-  assert.plan(8);
+  assert.plan(10);
 
   var input = read('control/input.css');
   var expected = read('control/expected.css');
@@ -41,7 +41,17 @@ test('control', function (assert) {
 
     assert.equal(
       result.messages[0].text,
-      'No custom properties set declared for `this-should-warn`'
+      'Custom properties sets are only allowed on `:root` rules.'
+    );
+
+    assert.equal(
+      result.messages[1].type,
+      'warning'
+    );
+
+    assert.equal(
+      result.messages[1].text,
+      'No custom properties set declared for `this-should-warn`.'
     );
 
     assert.equal(processor.plugins[0].postcssPlugin, pluginName);
