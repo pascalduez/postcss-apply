@@ -4,6 +4,7 @@ var fs = require('fs');
 var path = require('path');
 var test = require('tape');
 var postcss = require('postcss');
+var Promise = require('es6-promise').Promise; // eslint-disable-line
 var plugin = require('../');
 var pluginName = require('../package.json').name;
 

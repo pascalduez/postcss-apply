@@ -34,6 +34,7 @@
     "babel-eslint": "^4.0.10",
     "babel-istanbul": "^0.3.18",
     "coveralls": "^2.11.4",
+    "es6-promise": "^3.0.2",
     "eslint": "^1.2.1",
     "faucet": "0.0.1",
     "tape": "^4.2.0"
