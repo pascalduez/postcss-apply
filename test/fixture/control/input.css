@@ -1,3 +1,9 @@
 .control {
   content: 'control';
 }
+.should-pass {
+  @apply not-a-prop-set;
+}
+.should-warn {
+  @apply --this-should-warn;
+}

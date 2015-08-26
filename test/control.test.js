@@ -12,7 +12,7 @@ function read(name) {
 }
 
 test('control', function (assert) {
-  assert.plan(5);
+  assert.plan(8);
 
   var input = read('control/input.css');
   var expected = read('control/expected.css');
@@ -29,9 +29,22 @@ test('control', function (assert) {
   // PostCSS API.
   var processor = postcss();
   processor.use(plugin);
-  css = processor.process(input).toString();
-  assert.equal(css, expected);
+  processor.process(input).then(function (result) {
+    assert.equal(result.css, expected);
 
-  assert.equal(processor.plugins[0].postcssPlugin, pluginName);
-  assert.ok(processor.plugins[0].postcssVersion);
+    assert.ok(result.messages.length);
+
+    assert.equal(
+      result.messages[0].type,
+      'warning'
+    );
+
+    assert.equal(
+      result.messages[0].text,
+      'No custom properties set declared for `this-should-warn`'
+    );
+
+    assert.equal(processor.plugins[0].postcssPlugin, pluginName);
+    assert.ok(processor.plugins[0].postcssVersion);
+  });
 });
