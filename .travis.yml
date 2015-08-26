@@ -1,0 +1,16 @@
+language: node_js
+
+node_js:
+  - '0.10'
+  - '0.12'
+  - 'iojs'
+
+before_install:
+  - npm i npm@latest -g
+
+sudo: false
+
+git:
+  depth: 10
+
+script: make travis

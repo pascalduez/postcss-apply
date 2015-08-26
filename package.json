@@ -1,0 +1,44 @@
+{
+  "name": "postcss-apply",
+  "version": "0.1.0",
+  "description": "PostCSS plugin enabling cutom properties sets references",
+  "keywords": [
+    "css",
+    "apply",
+    "postcss",
+    "postcss-plugin"
+  ],
+  "author": {
+    "name": "Pascal Duez",
+    "url": "https://github.com/pascalduez"
+  },
+  "homepage": "https://github.com/pascalduez/postcss-apply",
+  "bugs": "https://github.com/pascalduez/postcss-apply/issues",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pascalduez/postcss-apply.git"
+  },
+  "license": "Unlicense",
+  "files": [
+    "dist",
+    "CHANGELOG.md",
+    "index.js",
+    "README.md",
+    "UNLICENSE"
+  ],
+  "dependencies": {
+    "postcss": "^5.0.2"
+  },
+  "devDependencies": {
+    "babel": "^5.8.21",
+    "babel-eslint": "^4.0.10",
+    "babel-istanbul": "^0.3.18",
+    "coveralls": "^2.11.4",
+    "eslint": "^1.2.1",
+    "faucet": "0.0.1",
+    "tape": "^4.2.0"
+  },
+  "scripts": {
+    "test": "make"
+  }
+}

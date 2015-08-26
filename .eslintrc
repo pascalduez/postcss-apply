@@ -1,0 +1,30 @@
+---
+parser: "babel-eslint"
+extends: "eslint:recommended"
+root: true
+
+env:
+  node: true
+  es6: true
+
+rules:
+  no-global-strict: 0
+  comma-dangle: [2, "always-multiline"]
+  strict: [1, "global"]
+  no-undef: 2
+  no-use-before-define: 0
+  no-console: 1
+
+  quotes: [2, "single"]
+  indent: [2, 2]
+  no-mixed-spaces-and-tabs: [2, "smart-tabs"]
+  no-underscore-dangle: 0
+  no-spaced-func: 1
+  space-before-blocks: [1, "always"]
+  space-after-keywords: [1, "always"]
+  space-before-function-paren: [1, {
+    "anonymous": "always",
+    "named": "never" }]
+  object-curly-spacing: [1, "always"]
+  computed-property-spacing: [1, "never"]
+  array-bracket-spacing: [1, "never"]
