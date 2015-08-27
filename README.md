@@ -77,7 +77,7 @@ output:
 
 ## Licence
 
-postcss-map is [unlicensed](http://unlicense.org/).
+postcss-apply is [unlicensed](http://unlicense.org/).
 
 
 
