@@ -9,8 +9,7 @@
 
 **Disclaimer**:  
 Just toying around an interesting idea, not even a [spec].  
-The plugin is in a very early/rough state.  
-Don't use this for serious stuff.  
+The plugin is in a very early state, some features are missing.
 
 
 ## Installation
