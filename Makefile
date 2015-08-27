@@ -30,7 +30,7 @@ cover: dist
 cover-browse: dist
 	rm -rf coverage
 	babel-istanbul cover --report html tape test/*.test.js
-	open coverage/index.html
+	opn coverage/index.html
 
 travis: lint cover
 	babel-istanbul report lcovonly
