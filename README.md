@@ -5,7 +5,7 @@
 [![Coverage Status][coveralls-image]][coveralls-url]
 
 
-> [PostCSS] plugin enabling cutom properties sets references
+> [PostCSS] plugin enabling custom properties sets references
 
 **Disclaimer**:  
 Just toying around an interesting idea, not even a [spec].  
