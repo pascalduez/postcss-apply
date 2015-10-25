@@ -7,6 +7,9 @@ env:
   node: true
   es6: true
 
+ecmaFeatures:
+  modules: true
+
 rules:
   no-global-strict: 0
   comma-dangle: [2, "always-multiline"]
