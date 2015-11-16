@@ -6,6 +6,9 @@ node_js:
   - '4.2'
   - 'stable'
 
+before_install:
+  - npm i npm@latest -g
+
 sudo: false
 
 git:
