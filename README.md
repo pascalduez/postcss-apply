@@ -26,12 +26,14 @@ var fs = require('fs');
 var postcss = require('postcss');
 var apply = require('postcss-apply');
 
-var css = fs.readFileSync('input.css', 'utf8');
+var input = fs.readFileSync('input.css', 'utf8');
 
-var output = postcss()
+postcss()
   .use(apply)
-  .process(css)
-  .css;
+  .process(input)
+  .then(function (result) {
+    fs.writeFileSync('output.css', result.css);
+  });
 ```
 
 ## Examples
