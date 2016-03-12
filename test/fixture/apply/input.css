@@ -10,6 +10,15 @@
   --with-parens: {
     color: tomato;
   }
+  --nested-set-one {
+    @apply --toolbar-theme;
+  }
+  --nested-set-two {
+    @apply --with-parens;
+    @apply --toolbar-title-theme;
+
+    color: orange;
+  }
 }
 
 .toolbar {
@@ -22,4 +31,12 @@
 
 .with-parens {
   @apply(--with-parens);
+}
+
+.nested-set-one {
+  @apply --nested-set-one;
+}
+
+.nested-set-two {
+  @apply --nested-set-two;
 }
