@@ -10,3 +10,4 @@ rules:
   space-before-function-paren: [2, {
     "anonymous": "always",
     "named": "never" }]
+  no-multiple-empty-lines: 0
