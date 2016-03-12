@@ -1,14 +1,17 @@
 .control {
   content: 'control';
 }
+
 .should-pass {
   @apply not-a-prop-set;
 }
+
 .should-warn--not-root {
   --toolbar-title-theme: {
     color: green;
   };
 }
+
 .should-warn--not-declared {
   @apply --this-should-warn;
 }

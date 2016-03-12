@@ -7,11 +7,19 @@
   --toolbar-title-theme: {
     color: green;
   };
+  --with-parens: {
+    color: tomato;
+  }
 }
 
 .toolbar {
   @apply --toolbar-theme;
 }
+
 .toolbar > .title {
   @apply --toolbar-title-theme;
+}
+
+.with-parens {
+  @apply(--with-parens);
 }
