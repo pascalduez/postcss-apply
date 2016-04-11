@@ -7,9 +7,8 @@
 
 > [PostCSS] plugin enabling custom properties sets references
 
-**Disclaimer**:  
-Just toying around an interesting idea, not even a [spec].  
-The plugin is in a very early state, some features are missing.
+Toying around an interesting idea, not really a [spec] yet ?  
+Refers to [`postcss-custom-properties`](https://github.com/postcss/postcss-custom-properties#postcss-custom-properties-) for DOMless limitations, although being future proof and spec compliant is the plugin primary goal.
 
 
 ## Installation
