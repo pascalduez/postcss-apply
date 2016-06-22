@@ -31,6 +31,9 @@ export default class Visitor {
     }
   }
 
+  /**
+   *  Allow parens usage for Polymer integration.
+   */
   getParamValue(param) {
     return /^\(/.test(param) ? balanced('(', ')', param).body : param;
   }
