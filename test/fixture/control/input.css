@@ -1,7 +1,7 @@
 :root {
-  --should-be-removed {
+  --should-be-removed: {
     content: 'gone';
-  }
+  };
 }
 
 .control {

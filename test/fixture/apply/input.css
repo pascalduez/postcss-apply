@@ -9,16 +9,16 @@
   };
   --with-parens: {
     color: tomato;
-  }
-  --nested-set-one {
+  };
+  --nested-set-one: {
     @apply --toolbar-theme;
-  }
-  --nested-set-two {
+  };
+  --nested-set-two: {
     @apply --with-parens;
     @apply --toolbar-title-theme;
 
     color: orange;
-  }
+  };
 }
 
 .toolbar {

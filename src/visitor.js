@@ -3,7 +3,7 @@ import balanced from 'balanced-match';
 const RE_PROP_SET = /^(--)([\w-]+)(\s*)([:;]?)$/;
 
 
-export default class Parser {
+export default class Visitor {
 
   cache = {};
   result = {};
@@ -31,6 +31,9 @@ export default class Parser {
     }
   }
 
+  /**
+   *  Allow parens usage for Polymer integration.
+   */
   getParamValue(param) {
     return /^\(/.test(param) ? balanced('(', ')', param).body : param;
   }
