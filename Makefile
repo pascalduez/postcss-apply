@@ -24,16 +24,15 @@ test: lint dist
 	ava
 
 cover: dist
-	rm -rf coverage
 	nyc ava
 
-cover-browse: dist
+cover-browse: dist cover
 	rm -rf coverage
 	nyc --reporter=html ava
 	opn coverage/index.html
 
-coveralls:
-	(nyc report --reporter=text-lcov ava | coveralls) || exit 0
+coveralls: cover
+	(nyc report --reporter=text-lcov | coveralls) || exit 0
 
 
 # Publish package to npm
