@@ -15,4 +15,5 @@ sudo: false
 git:
   depth: 10
 
-script: make travis
+script: make test
+after_success: make coveralls
