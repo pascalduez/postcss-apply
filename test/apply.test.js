@@ -1,21 +1,22 @@
-'use strict';
+import fs from 'fs';
+import path from 'path';
+import test from 'ava';
+import { expect } from 'chai';
+import postcss from 'postcss';
+import plugin from '../';
 
-var fs = require('fs');
-var path = require('path');
-var test = require('tape');
-var postcss = require('postcss');
-var plugin = require('../');
+const read = name =>
+  fs.readFileSync(path.join(__dirname, 'fixture', name), 'utf8');
 
-function read(name) {
-  return fs.readFileSync(path.join(__dirname, 'fixture', name), 'utf8');
-}
 
-test('apply', function (assert) {
-  assert.plan(1);
+test('apply', () => {
+  const input = read('apply/input.css');
+  const expected = read('apply/expected.css');
 
-  var input = read('apply/input.css');
-  var expected = read('apply/expected.css');
-  var css = postcss([plugin]).process(input).css;
-
-  assert.equal(css, expected);
+  return postcss()
+    .use(plugin)
+    .process(input)
+    .then(result => {
+      expect(result.css).to.equal(expected);
+    });
 });

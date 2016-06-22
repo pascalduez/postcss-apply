@@ -1,61 +1,56 @@
-'use strict';
+import fs from 'fs';
+import path from 'path';
+import test from 'ava';
+import { expect } from 'chai';
+import postcss from 'postcss';
+import plugin from '../';
 
-var fs = require('fs');
-var path = require('path');
-var test = require('tape');
-var postcss = require('postcss');
-var Promise = require('es6-promise').Promise; // eslint-disable-line
-var plugin = require('../');
-var pluginName = require('../package.json').name;
+const pluginName = require('../package.json').name;
 
-function read(name) {
-  return fs.readFileSync(path.join(__dirname, 'fixture', name), 'utf8');
-}
+const read = name =>
+  fs.readFileSync(path.join(__dirname, 'fixture', name), 'utf8');
 
-test('control', function (assert) {
-  assert.plan(10);
+const expected = read('control/expected.css');
+const input = read('control/input.css');
 
-  var input = read('control/input.css');
-  var expected = read('control/expected.css');
-  var css;
 
-  // No opts.
-  css = postcss([plugin]).process(input).css;
-  assert.equal(css, expected);
+test('control: no options', () => {
+  const result = postcss([plugin]).process(input).css;
+  expect(result).to.equal(expected);
+});
 
-  // PostCSS legacy API.
-  css = postcss([plugin.postcss]).process(input).css;
-  assert.equal(css, expected);
+test('control: with options', () => {
+  const result = postcss([plugin({})]).process(input).css;
+  expect(result).to.equal(expected);
+});
 
-  // PostCSS API.
-  var processor = postcss();
+test('control: PostCSS legacy API', () => {
+  const result = postcss([plugin.postcss]).process(input).css;
+  expect(result).to.equal(expected);
+});
+
+test('control: PostCSS API', () => {
+  const processor = postcss();
   processor.use(plugin);
-  processor.process(input).then(function (result) {
-    assert.equal(result.css, expected);
 
-    assert.ok(result.messages.length);
+  return processor.process(input).then(result => {
+    expect(result.css).to.equal(expected);
 
-    assert.equal(
-      result.messages[0].type,
-      'warning'
-    );
+    expect(result.messages.length).to.be.ok;
 
-    assert.equal(
-      result.messages[0].text,
-      'Custom properties sets are only allowed on `:root` rules.'
-    );
+    expect(result.messages[0].type)
+      .to.equal('warning');
 
-    assert.equal(
-      result.messages[1].type,
-      'warning'
-    );
+    expect(result.messages[0].text)
+      .to.equal('Custom properties sets are only allowed on `:root` rules.');
 
-    assert.equal(
-      result.messages[1].text,
-      'No custom properties set declared for `this-should-warn`.'
-    );
+    expect(result.messages[1].type)
+      .to.equal('warning');
 
-    assert.equal(processor.plugins[0].postcssPlugin, pluginName);
-    assert.ok(processor.plugins[0].postcssVersion);
+    expect(result.messages[1].text)
+      .to.equal('No custom properties set declared for `this-should-warn`.');
+
+    expect(processor.plugins[0].postcssPlugin).to.equal(pluginName);
+    expect(processor.plugins[0].postcssVersion).to.be.ok;
   });
 });
