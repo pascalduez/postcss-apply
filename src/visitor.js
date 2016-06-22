@@ -3,7 +3,7 @@ import balanced from 'balanced-match';
 const RE_PROP_SET = /^(--)([\w-]+)(\s*)([:;]?)$/;
 
 
-export default class Parser {
+export default class Visitor {
 
   cache = {};
   result = {};
