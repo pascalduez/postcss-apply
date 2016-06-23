@@ -7,7 +7,9 @@
 
 > [PostCSS] plugin enabling custom properties sets references
 
-Toying around an interesting idea, not really a [spec] yet ?  
+Aka `@apply rule`.  
+Spec (editor's draft): https://tabatkins.github.io/specs/css-apply-rule  
+Browser support: https://www.chromestatus.com/feature/5753701012602880  
 Refers to [`postcss-custom-properties`](https://github.com/postcss/postcss-custom-properties#postcss-custom-properties-) for DOMless limitations, although being future proof and spec compliant is the plugin primary goal.
 
 
@@ -50,22 +52,24 @@ input:
   };
 }
 
-.toolbar {
+.Toolbar {
   @apply --toolbar-theme;
 }
-.toolbar__title {
+
+.Toolbar-title {
   @apply --toolbar-title-theme;
 }
 ```
 
 output:
 ```css
-.toolbar {
+.Toolbar {
   background-color: rebeccapurple;
   color: white;
   border: 1px solid green;
 }
-.toolbar__title {
+
+.Toolbar-title {
   color: green;
 }
 ```
