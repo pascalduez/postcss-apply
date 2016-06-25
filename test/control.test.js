@@ -14,15 +14,19 @@ const expected = read('control/expected.css');
 const input = read('control/input.css');
 
 
-test('control: no options', () => {
-  const result = postcss([plugin]).process(input).css;
-  expect(result).to.equal(expected);
-});
+test('control: no options', () =>
+  postcss([plugin])
+    .process(input)
+    .then(result => {
+      expect(result.css).to.equal(expected);
+    }));
 
-test('control: with options', () => {
-  const result = postcss([plugin({})]).process(input).css;
-  expect(result).to.equal(expected);
-});
+test('control: with options', () =>
+  postcss([plugin({})])
+    .process(input)
+    .then(result => {
+      expect(result.css).to.equal(expected);
+    }));
 
 test('control: PostCSS legacy API', () => {
   const result = postcss([plugin.postcss]).process(input).css;

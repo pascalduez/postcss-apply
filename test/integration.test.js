@@ -31,7 +31,7 @@ test('integration: custom properties without plugin', () => {
 test('integration: custom properties with plugin first', () => {
   const input = `
     :root {
-      --should-stay: 'test';
+      --should-be-pruned: 'pruned';
       --should-be-removed: {
         content: 'gone';
       };
@@ -52,7 +52,7 @@ test('integration: custom properties with plugin first', () => {
 test('integration: custom properties with plugin last', () => {
   const input = `
     :root {
-      --should-stay: 'test';
+      --should-be-pruned: 'pruned';
       --should-be-removed: {
         content: 'gone';
       };
@@ -70,7 +70,7 @@ test('integration: custom properties with plugin last', () => {
 });
 
 
-test('integration: custom properties with no plugin', () => {
+test('integration: custom properties without plugin', () => {
   const input = `
     :root {
       --should-stay: 'test';
@@ -126,6 +126,100 @@ test('integration: custom properties with plugin', () => {
   const processor = postcss();
   processor.use(customProperties);
   processor.use(plugin);
+
+  return processor.process(input).then(result => {
+    expect(result.css).to.equal(expected);
+  });
+});
+
+
+test('integration: custom properties nested without plugin', () => {
+  const input = `
+    :root {
+      --custom-prop: 'prop';
+      --custom-prop-set: {
+        content: var(--custom-prop);
+      };
+    }
+
+    .test {
+      @apply --custom-prop-set;
+      content: var(--custom-prop);
+    }`;
+
+  const expected = `
+    :root {
+      --custom-prop: 'prop';
+    }
+
+    .test {
+      content: var(--custom-prop);
+      content: var(--custom-prop);
+    }`;
+
+  const processor = postcss();
+  // processor.use(customProperties);
+  processor.use(plugin);
+
+  return processor.process(input).then(result => {
+    expect(result.css).to.equal(expected);
+  });
+});
+
+
+test('integration: custom properties nested with plugin first', () => {
+  const input = `
+    :root {
+      --custom-prop: 'prop';
+      --custom-prop-set: {
+        content: var(--custom-prop);
+      };
+    }
+
+    .test {
+      @apply --custom-prop-set;
+      content: var(--custom-prop);
+    }`;
+
+  const expected = `
+    .test {
+      content: 'prop';
+      content: 'prop';
+    }`;
+
+  const processor = postcss();
+  processor.use(customProperties);
+  processor.use(plugin);
+
+  return processor.process(input).then(result => {
+    expect(result.css).to.equal(expected);
+  });
+});
+
+
+test('integration: custom properties nested with plugin last', () => {
+  const input = `
+    :root {
+      --custom-prop: 'prop';
+      --custom-prop-set: {
+        content: var(--custom-prop);
+      };
+    }
+
+    .test {
+      @apply --custom-prop-set;
+      content: var(--custom-prop);
+    }`;
+
+  const expected = `
+    .test {
+      content: 'prop';
+      content: 'prop';
+    }`;
+
+  const processor = postcss();
+  processor.use(plugin);
+  processor.use(customProperties);
 
   return processor.process(input).then(result => {
     expect(result.css).to.equal(expected);
