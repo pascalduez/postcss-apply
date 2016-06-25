@@ -17,10 +17,12 @@ export default class Visitor {
     }
 
     if (parent.selector !== ':root') {
-      return rule.warn(
+      rule.warn(
         this.result,
         'Custom properties sets are only allowed on `:root` rules.'
       );
+
+      return;
     }
 
     this.cache[matches[2]] = rule;

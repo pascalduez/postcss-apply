@@ -1,13 +1,8 @@
 ---
-parser: "babel-eslint"
-extends: "standard"
 root: true
-
-rules:
-  semi: [2, "always"]
-  comma-dangle: [2, "always-multiline"]
-  arrow-parens: [2, "as-needed"]
-  space-before-function-paren: [2, {
-    "anonymous": "always",
-    "named": "never" }]
-  no-multiple-empty-lines: 0
+parser: "babel-eslint"
+extends:
+  - "airbnb-base"
+  - "plugin:ava/recommended"
+plugins:
+  - ava

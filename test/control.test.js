@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-expressions */
+
 import fs from 'fs';
 import path from 'path';
 import test from 'ava';

@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+
 import { plugin } from 'postcss';
 import Visitor from './visitor';
 

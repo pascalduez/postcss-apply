@@ -5,7 +5,7 @@ import customProperties from 'postcss-custom-properties';
 import plugin from '../';
 
 
-test('integration: custom properties without plugin', () => {
+test('integration: custom properties declaration without plugin', () => {
   const input = `
     :root {
       --should-stay: 'test';
@@ -28,7 +28,7 @@ test('integration: custom properties without plugin', () => {
 });
 
 
-test('integration: custom properties with plugin first', () => {
+test('integration: custom properties declaration with plugin first', () => {
   const input = `
     :root {
       --should-be-pruned: 'pruned';
@@ -49,7 +49,7 @@ test('integration: custom properties with plugin first', () => {
 });
 
 
-test('integration: custom properties with plugin last', () => {
+test('integration: custom properties declaration with plugin last', () => {
   const input = `
     :root {
       --should-be-pruned: 'pruned';
