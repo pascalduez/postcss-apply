@@ -9,14 +9,13 @@ const read = name =>
   fs.readFileSync(path.join(__dirname, 'fixture', name), 'utf8');
 
 
-test('apply', () => {
+test('apply', async () => {
   const input = read('apply/input.css');
   const expected = read('apply/expected.css');
 
-  return postcss()
+  const result = await postcss()
     .use(plugin)
-    .process(input)
-    .then(result => {
-      expect(result.css).to.equal(expected);
-    });
+    .process(input);
+
+  expect(result.css).to.equal(expected);
 });

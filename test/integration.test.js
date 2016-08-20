@@ -5,7 +5,7 @@ import customProperties from 'postcss-custom-properties';
 import plugin from '../';
 
 
-test('integration: custom properties declaration without plugin', () => {
+test('integration: custom properties declaration without plugin', async () => {
   const input = `
     :root {
       --should-stay: 'test';
@@ -22,13 +22,13 @@ test('integration: custom properties declaration without plugin', () => {
   const processor = postcss();
   processor.use(plugin);
 
-  return processor.process(input).then(result => {
-    expect(result.css).to.equal(expected);
-  });
+  const result = await processor.process(input);
+
+  expect(result.css).to.equal(expected);
 });
 
 
-test('integration: custom properties declaration with plugin first', () => {
+test('integration: custom properties declaration with plugin first', async () => {
   const input = `
     :root {
       --should-be-pruned: 'pruned';
@@ -43,13 +43,13 @@ test('integration: custom properties declaration with plugin first', () => {
   processor.use(customProperties);
   processor.use(plugin);
 
-  return processor.process(input).then(result => {
-    expect(result.css).to.equal(expected);
-  });
+  const result = await processor.process(input);
+
+  expect(result.css).to.equal(expected);
 });
 
 
-test('integration: custom properties declaration with plugin last', () => {
+test('integration: custom properties declaration with plugin last', async () => {
   const input = `
     :root {
       --should-be-pruned: 'pruned';
@@ -64,13 +64,13 @@ test('integration: custom properties declaration with plugin last', () => {
   processor.use(plugin);
   processor.use(customProperties);
 
-  return processor.process(input).then(result => {
-    expect(result.css).to.equal(expected);
-  });
+  const result = await processor.process(input);
+
+  expect(result.css).to.equal(expected);
 });
 
 
-test('integration: custom properties without plugin', () => {
+test('integration: custom properties without plugin', async () => {
   const input = `
     :root {
       --should-stay: 'test';
@@ -97,13 +97,13 @@ test('integration: custom properties without plugin', () => {
   const processor = postcss();
   processor.use(plugin);
 
-  return processor.process(input).then(result => {
-    expect(result.css).to.equal(expected);
-  });
+  const result = await processor.process(input);
+
+  expect(result.css).to.equal(expected);
 });
 
 
-test('integration: custom properties with plugin', () => {
+test('integration: custom properties with plugin', async () => {
   const input = `
     :root {
       --custom-prop: 'prop';
@@ -127,13 +127,13 @@ test('integration: custom properties with plugin', () => {
   processor.use(customProperties);
   processor.use(plugin);
 
-  return processor.process(input).then(result => {
-    expect(result.css).to.equal(expected);
-  });
+  const result = await processor.process(input);
+
+  expect(result.css).to.equal(expected);
 });
 
 
-test('integration: custom properties nested without plugin', () => {
+test('integration: custom properties nested without plugin', async () => {
   const input = `
     :root {
       --custom-prop: 'prop';
@@ -161,13 +161,13 @@ test('integration: custom properties nested without plugin', () => {
   // processor.use(customProperties);
   processor.use(plugin);
 
-  return processor.process(input).then(result => {
-    expect(result.css).to.equal(expected);
-  });
+  const result = await processor.process(input);
+
+  expect(result.css).to.equal(expected);
 });
 
 
-test('integration: custom properties nested with plugin first', () => {
+test('integration: custom properties nested with plugin first', async () => {
   const input = `
     :root {
       --custom-prop: 'prop';
@@ -191,13 +191,13 @@ test('integration: custom properties nested with plugin first', () => {
   processor.use(customProperties);
   processor.use(plugin);
 
-  return processor.process(input).then(result => {
-    expect(result.css).to.equal(expected);
-  });
+  const result = await processor.process(input);
+
+  expect(result.css).to.equal(expected);
 });
 
 
-test('integration: custom properties nested with plugin last', () => {
+test('integration: custom properties nested with plugin last', async () => {
   const input = `
     :root {
       --custom-prop: 'prop';
@@ -221,7 +221,7 @@ test('integration: custom properties nested with plugin last', () => {
   processor.use(plugin);
   processor.use(customProperties);
 
-  return processor.process(input).then(result => {
-    expect(result.css).to.equal(expected);
-  });
+  const result = await processor.process(input);
+
+  expect(result.css).to.equal(expected);
 });

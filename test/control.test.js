@@ -35,28 +35,28 @@ test('control: PostCSS legacy API', () => {
   expect(result).to.equal(expected);
 });
 
-test('control: PostCSS API', () => {
+test('control: PostCSS API', async () => {
   const processor = postcss();
   processor.use(plugin);
 
-  return processor.process(input).then(result => {
-    expect(result.css).to.equal(expected);
+  const result = await processor.process(input);
 
-    expect(result.messages.length).to.be.ok;
+  expect(result.css).to.equal(expected);
 
-    expect(result.messages[0].type)
-      .to.equal('warning');
+  expect(result.messages.length).to.be.ok;
 
-    expect(result.messages[0].text)
-      .to.equal('Custom properties sets are only allowed on `:root` rules.');
+  expect(result.messages[0].type)
+    .to.equal('warning');
 
-    expect(result.messages[1].type)
-      .to.equal('warning');
+  expect(result.messages[0].text)
+    .to.equal('Custom properties sets are only allowed on `:root` rules.');
 
-    expect(result.messages[1].text)
-      .to.equal('No custom properties set declared for `this-should-warn`.');
+  expect(result.messages[1].type)
+    .to.equal('warning');
 
-    expect(processor.plugins[0].postcssPlugin).to.equal(pluginName);
-    expect(processor.plugins[0].postcssVersion).to.be.ok;
-  });
+  expect(result.messages[1].text)
+    .to.equal('No custom properties set declared for `this-should-warn`.');
+
+  expect(processor.plugins[0].postcssPlugin).to.equal(pluginName);
+  expect(processor.plugins[0].postcssVersion).to.be.ok;
 });
