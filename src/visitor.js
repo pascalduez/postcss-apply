@@ -33,15 +33,8 @@ export default class Visitor {
     }
   }
 
-  /**
-   *  Allow parens usage for Polymer integration.
-   */
-  getParamValue(param) {
-    return /^\(/.test(param) ? balanced('(', ')', param).body : param;
-  }
-
   replace(atRule) {
-    const param = this.getParamValue(atRule.params);
+    const param = getParamValue(atRule.params);
     const matches = RE_PROP_SET.exec(param);
 
     if (!matches) {
@@ -59,4 +52,15 @@ export default class Visitor {
       );
     }
   }
+}
+
+
+/**
+ * Helper: allow parens usage in `@apply` rule declaration.
+ * This is for Polymer integration.
+ * @param {String} param
+ * @return {String}
+ */
+function getParamValue(param) {
+  return /^\(/.test(param) ? balanced('(', ')', param).body : param;
 }

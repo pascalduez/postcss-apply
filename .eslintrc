@@ -6,3 +6,7 @@ extends:
   - "plugin:ava/recommended"
 plugins:
   - ava
+rules:
+  no-use-before-define:
+    - error
+    - functions: false
