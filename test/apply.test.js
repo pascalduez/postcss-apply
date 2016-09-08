@@ -19,3 +19,14 @@ test('apply', async () => {
 
   expect(result.css).to.equal(expected);
 });
+
+test('overrides', async () => {
+  const input = read('overrides/input.css');
+  const expected = read('overrides/expected.css');
+
+  const result = await postcss()
+    .use(plugin)
+    .process(input);
+
+  expect(result.css).to.equal(expected);
+});

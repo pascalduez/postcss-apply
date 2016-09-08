@@ -1,6 +1,6 @@
 import balanced from 'balanced-match';
 
-const RE_PROP_SET = /^(--)([\w-]+)(\s*)([:;]?)$/;
+const RE_PROP_SET = /^(--)([\w-]+)(\s*)([:]?)$/;
 
 
 export default class Visitor {
@@ -8,24 +8,35 @@ export default class Visitor {
   cache = {};
   result = {};
 
-  collect(rule) {
+  /**
+   * Collect all `:root` declared property sets and save them.
+   * @param {Node} rule
+   */
+  collect = (rule) => {
     const matches = RE_PROP_SET.exec(rule.selector);
-    const parent = rule.parent;
 
     if (!matches) {
       return;
     }
 
+    const setName = matches[2];
+    const parent = rule.parent;
+
     if (parent.selector !== ':root') {
-      rule.warn(
-        this.result,
-        'Custom properties sets are only allowed on `:root` rules.'
+      rule.warn(this.result,
+        'Custom property set ignored: not scoped to top-level `:root` ' +
+        `(--${setName}` +
+        `${parent.type === 'rule' ? ` declared in ${parent.selector}` : ''})`
       );
 
       return;
     }
 
-    this.cache[matches[2]] = rule;
+    // Custom property sets override each other wholly,
+    // rather than cascading together like colliding style rules do.
+    // @see: https://tabatkins.github.io/specs/css-apply-rule/#defining
+    this.cache[setName] = rule;
+
     rule.remove();
 
     if (!parent.nodes.length) {
@@ -33,7 +44,20 @@ export default class Visitor {
     }
   }
 
-  replace(atRule) {
+  /**
+   * Replace nested `@apply` at-rules declarations.
+   */
+  resolveNested = () => {
+    Object.keys(this.cache).forEach(rule =>
+      this.cache[rule].walkAtRules('apply', this.resolve)
+    );
+  }
+
+  /**
+   * Replace `@apply` at-rules declarations with provided custom property set.
+   * @param {Node} atRule
+   */
+  resolve = (atRule) => {
     const param = getParamValue(atRule.params);
     const matches = RE_PROP_SET.exec(param);
 
@@ -46,9 +70,8 @@ export default class Visitor {
     if (setName in this.cache) {
       atRule.replaceWith(this.cache[setName].nodes);
     } else {
-      atRule.warn(
-        this.result,
-        `No custom properties set declared for \`${setName}\`.`
+      atRule.warn(this.result,
+        `No custom property set declared for \`${setName}\`.`
       );
     }
   }

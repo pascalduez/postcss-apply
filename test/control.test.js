@@ -49,13 +49,13 @@ test('control: PostCSS API', async () => {
     .to.equal('warning');
 
   expect(result.messages[0].text)
-    .to.equal('Custom properties sets are only allowed on `:root` rules.');
+    .to.match(/Custom property set ignored: not scoped to top-level `:root`/);
 
   expect(result.messages[1].type)
     .to.equal('warning');
 
   expect(result.messages[1].text)
-    .to.equal('No custom properties set declared for `this-should-warn`.');
+    .to.equal('No custom property set declared for `this-should-warn`.');
 
   expect(processor.plugins[0].postcssPlugin).to.equal(pluginName);
   expect(processor.plugins[0].postcssVersion).to.be.ok;
