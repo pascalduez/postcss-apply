@@ -1,8 +1,17 @@
 # postcss-apply change Log
+
 All notable changes to this project will be documented in this file.
-This project adheres to [Semantic Versioning](http://semver.org/).
+
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
+and this project adheres to [Semantic Versioning](http://semver.org/).
+
 
 ## [Unreleased]
+
+## [0.4.0] - 2016-09-13
+### Changed
+  * Correctly handles property set overrides.
+    [#10](https://github.com/pascalduez/postcss-apply/issues/10)
 
 ## [0.3.0] - 2016-06-23
 ### Changed
@@ -21,3 +30,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.1.0] - 2015-08-26
   * Initial release.
+
+[Unreleased]: https://github.com/pascalduez/postcss-apply/compare/0.4.0...HEAD
+[0.4.0]: https://github.com/pascalduez/postcss-apply/compare/0.3.0...0.4.0
+[0.3.0]: https://github.com/pascalduez/postcss-apply/compare/0.2.0...0.3.0
+[0.2.0]: https://github.com/pascalduez/postcss-apply/compare/0.1.0...0.2.0
+[0.1.0]: https://github.com/pascalduez/postcss-apply/tags/0.1.0
