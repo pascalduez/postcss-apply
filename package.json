@@ -51,6 +51,7 @@
     "eslint-plugin-import": "^1.13.0",
     "nyc": "^8.1.0",
     "opn-cli": "^3.0.1",
-    "postcss-custom-properties": "^5.0.1"
+    "postcss-custom-properties": "^5.0.1",
+    "postcss-reporter": "^1.4.1"
   }
 }

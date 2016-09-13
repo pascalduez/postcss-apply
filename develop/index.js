@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import postcss from 'postcss';
+import reporter from 'postcss-reporter';
 import plugin from '../';
 
 const read = name =>
@@ -10,7 +11,9 @@ const input = read('apply/input.css');
 
 postcss()
   .use(plugin)
+  .use(reporter)
   .process(input)
   .then(result => {
     console.log(result.css);
-  });
+  })
+  .catch(console.error);
