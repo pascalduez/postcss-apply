@@ -1,11 +1,10 @@
 ---
 root: true
 parser: "babel-eslint"
-extends:
-  - "airbnb-base"
-  - "plugin:ava/recommended"
-plugins:
-  - ava
+extends: "airbnb-base"
+env:
+  jest: true
+
 rules:
   no-use-before-define:
     - error

@@ -1,9 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import test from 'ava';
-import { expect } from 'chai';
 import postcss from 'postcss';
-import plugin from '../';
+import plugin from '../src';
 
 const read = name =>
   fs.readFileSync(path.join(__dirname, 'fixture', name), 'utf8');
@@ -17,7 +15,7 @@ test('apply', async () => {
     .use(plugin)
     .process(input);
 
-  expect(result.css).to.equal(expected);
+  expect(result.css).toBe(expected);
 });
 
 test('overrides', async () => {
@@ -28,5 +26,5 @@ test('overrides', async () => {
     .use(plugin)
     .process(input);
 
-  expect(result.css).to.equal(expected);
+  expect(result.css).toBe(expected);
 });
