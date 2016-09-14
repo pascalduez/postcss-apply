@@ -1,8 +1,6 @@
-import test from 'ava';
-import { expect } from 'chai';
 import postcss from 'postcss';
 import customProperties from 'postcss-custom-properties';
-import plugin from '../';
+import plugin from '../src';
 
 
 test('integration: custom properties declaration without plugin', async () => {
@@ -24,7 +22,7 @@ test('integration: custom properties declaration without plugin', async () => {
 
   const result = await processor.process(input);
 
-  expect(result.css).to.equal(expected);
+  expect(result.css).toBe(expected);
 });
 
 
@@ -45,7 +43,7 @@ test('integration: custom properties declaration with plugin first', async () =>
 
   const result = await processor.process(input);
 
-  expect(result.css).to.equal(expected);
+  expect(result.css).toBe(expected);
 });
 
 
@@ -66,7 +64,7 @@ test('integration: custom properties declaration with plugin last', async () => 
 
   const result = await processor.process(input);
 
-  expect(result.css).to.equal(expected);
+  expect(result.css).toBe(expected);
 });
 
 
@@ -99,7 +97,7 @@ test('integration: custom properties without plugin', async () => {
 
   const result = await processor.process(input);
 
-  expect(result.css).to.equal(expected);
+  expect(result.css).toBe(expected);
 });
 
 
@@ -129,7 +127,7 @@ test('integration: custom properties with plugin', async () => {
 
   const result = await processor.process(input);
 
-  expect(result.css).to.equal(expected);
+  expect(result.css).toBe(expected);
 });
 
 
@@ -163,7 +161,7 @@ test('integration: custom properties nested without plugin', async () => {
 
   const result = await processor.process(input);
 
-  expect(result.css).to.equal(expected);
+  expect(result.css).toBe(expected);
 });
 
 
@@ -193,7 +191,7 @@ test('integration: custom properties nested with plugin first', async () => {
 
   const result = await processor.process(input);
 
-  expect(result.css).to.equal(expected);
+  expect(result.css).toBe(expected);
 });
 
 
@@ -223,5 +221,5 @@ test('integration: custom properties nested with plugin last', async () => {
 
   const result = await processor.process(input);
 
-  expect(result.css).to.equal(expected);
+  expect(result.css).toBe(expected);
 });

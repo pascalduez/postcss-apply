@@ -20,19 +20,17 @@ develop: dist
 lint:
 	eslint ./src ./test
 
-test: lint dist
-	ava
+test: lint
+	jest
 
-cover: dist
-	nyc ava
+cover:
+	jest --coverage
 
-cover-browse: dist cover
-	rm -rf coverage
-	nyc --reporter=html ava
-	opn coverage/index.html
+cover-browse: cover
+	opn ./coverage/lcov-report/index.html
 
 coveralls: cover
-	(nyc report --reporter=text-lcov | coveralls) || exit 0
+	(cat ./coverage/lcov.info | coveralls) || exit 0
 
 
 # Publish package to npm
@@ -65,4 +63,4 @@ rebuild:
 
 
 .PHONY: dist develop test
-.SILENT: dist develop cover travis
+.SILENT: dist develop cover

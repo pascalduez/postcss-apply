@@ -1,11 +1,7 @@
-/* eslint-disable no-unused-expressions */
-
 import fs from 'fs';
 import path from 'path';
-import test from 'ava';
-import { expect } from 'chai';
 import postcss from 'postcss';
-import plugin from '../';
+import plugin from '../src';
 
 const pluginName = require('../package.json').name;
 
@@ -20,19 +16,20 @@ test('control: no options', () =>
   postcss([plugin])
     .process(input)
     .then(result => {
-      expect(result.css).to.equal(expected);
+      expect(result.css).toBe(expected);
     }));
 
 test('control: with options', () =>
   postcss([plugin({})])
     .process(input)
     .then(result => {
-      expect(result.css).to.equal(expected);
+      expect(result.css).toBe(expected);
     }));
 
 test('control: PostCSS legacy API', () => {
   const result = postcss([plugin.postcss]).process(input).css;
-  expect(result).to.equal(expected);
+
+  expect(result).toBe(expected);
 });
 
 test('control: PostCSS API', async () => {
@@ -41,22 +38,19 @@ test('control: PostCSS API', async () => {
 
   const result = await processor.process(input);
 
-  expect(result.css).to.equal(expected);
+  expect(result.css).toBe(expected);
 
-  expect(result.messages.length).to.be.ok;
+  expect(result.messages.length).toBeGreaterThan(0);
 
-  expect(result.messages[0].type)
-    .to.equal('warning');
+  expect(result.messages[0].type).toBe('warning');
+  expect(result.messages[1].type).toBe('warning');
 
   expect(result.messages[0].text)
-    .to.match(/Custom property set ignored: not scoped to top-level `:root`/);
-
-  expect(result.messages[1].type)
-    .to.equal('warning');
+    .toMatch(/Custom property set ignored: not scoped to top-level `:root`/);
 
   expect(result.messages[1].text)
-    .to.equal('No custom property set declared for `this-should-warn`.');
+    .toBe('No custom property set declared for `this-should-warn`.');
 
-  expect(processor.plugins[0].postcssPlugin).to.equal(pluginName);
-  expect(processor.plugins[0].postcssVersion).to.be.ok;
+  expect(processor.plugins[0].postcssPlugin).toBe(pluginName);
+  expect(processor.plugins[0].postcssVersion).toBeDefined();
 });
