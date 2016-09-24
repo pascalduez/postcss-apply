@@ -9,5 +9,3 @@ rules:
   no-use-before-define:
     - error
     - functions: false
-  # https://github.com/eslint/eslint/issues/7101
-  arrow-parens: off
