@@ -7,24 +7,26 @@ const read = name =>
   fs.readFileSync(path.join(__dirname, 'fixture', name), 'utf8');
 
 
-test('apply', async () => {
-  const input = read('apply/input.css');
-  const expected = read('apply/expected.css');
+describe('apply', () => {
+  it('should properly apply and remove custom property sets', async () => {
+    const input = read('apply/input.css');
+    const expected = read('apply/expected.css');
 
-  const result = await postcss()
-    .use(plugin)
-    .process(input);
+    const result = await postcss()
+      .use(plugin)
+      .process(input);
 
-  expect(result.css).toBe(expected);
-});
+    expect(result.css).toBe(expected);
+  });
 
-test('overrides', async () => {
-  const input = read('overrides/input.css');
-  const expected = read('overrides/expected.css');
+  it('should properly apply custom property sets overrides', async () => {
+    const input = read('overrides/input.css');
+    const expected = read('overrides/expected.css');
 
-  const result = await postcss()
-    .use(plugin)
-    .process(input);
+    const result = await postcss()
+      .use(plugin)
+      .process(input);
 
-  expect(result.css).toBe(expected);
+    expect(result.css).toBe(expected);
+  });
 });
