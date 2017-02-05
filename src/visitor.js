@@ -1,5 +1,4 @@
 import balanced from 'balanced-match';
-// import postcss from 'postcss';
 
 const RE_PROP_SET = /^(--)([\w-]+)(\s*)([:]?)$/;
 
@@ -37,6 +36,10 @@ export default class Visitor {
         `(--${setName}` +
         `${parent.type === 'rule' ? ` declared in ${parent.selector}` : ''})`
       );
+
+      if (parent.type === 'root') {
+        rule.remove();
+      }
 
       return;
     }

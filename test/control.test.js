@@ -45,12 +45,20 @@ describe('control', () => {
 
     expect(result.messages[0].type).toBe('warning');
     expect(result.messages[1].type).toBe('warning');
+    expect(result.messages[2].type).toBe('warning');
+    expect(result.messages[3].type).toBe('warning');
 
     expect(result.messages[0].text)
       .toMatch(/Custom property set ignored: not scoped to top-level `:root`/);
 
     expect(result.messages[1].text)
+      .toMatch(/Custom property set ignored: not scoped to top-level `:root`/);
+
+    expect(result.messages[2].text)
       .toBe('No custom property set declared for `this-should-warn`.');
+
+    expect(result.messages[3].text)
+      .toBe('The @apply rule can only be declared inside Rule type nodes.');
 
     expect(processor.plugins[0].postcssPlugin).toBe(pluginName);
     expect(processor.plugins[0].postcssVersion).toBeDefined();

@@ -21,3 +21,9 @@
 .should-warn--not-declared {
   @apply --this-should-warn;
 }
+
+--should-warn-about-root-scope-and-be-removed: {
+  color: green;
+};
+
+@apply --should-warn-about-root-scope-and-be-removed;
