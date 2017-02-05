@@ -7,6 +7,14 @@ export default class Visitor {
 
   cache = {};
   result = {};
+  defaults = { preserve: false };
+
+  constructor(options) {
+    this.options = {
+      ...this.defaults,
+      ...options,
+    };
+  }
 
   /**
    * Collect all `:root` declared property sets and save them.
@@ -29,15 +37,22 @@ export default class Visitor {
         `${parent.type === 'rule' ? ` declared in ${parent.selector}` : ''})`
       );
 
+      if (parent.type === 'root') {
+        rule.remove();
+      }
+
       return;
     }
 
     // Custom property sets override each other wholly,
     // rather than cascading together like colliding style rules do.
     // @see: https://tabatkins.github.io/specs/css-apply-rule/#defining
-    this.cache[setName] = rule;
+    const newRule = rule.clone();
+    this.cache[setName] = newRule;
 
-    rule.remove();
+    if (!this.options.preserve) {
+      rule.remove();
+    }
 
     if (!parent.nodes.length) {
       parent.remove();
@@ -48,9 +63,12 @@ export default class Visitor {
    * Replace nested `@apply` at-rules declarations.
    */
   resolveNested = () => {
-    Object.keys(this.cache).forEach(rule =>
-      this.cache[rule].walkAtRules('apply', this.resolve)
-    );
+    Object.keys(this.cache).forEach((rule) => {
+      this.cache[rule].walkAtRules('apply', (atRule) => {
+        this.resolve(atRule);
+        atRule.remove();
+      });
+    });
   }
 
   /**
@@ -58,6 +76,19 @@ export default class Visitor {
    * @param {Node} atRule
    */
   resolve = (atRule) => {
+    if (atRule.parent.type !== 'rule') {
+      atRule.warn(this.result,
+        'The @apply rule can only be declared inside Rule type nodes.'
+      );
+
+      atRule.remove();
+      return;
+    }
+
+    if (isDefinition(atRule.parent)) {
+      return;
+    }
+
     const param = getParamValue(atRule.params);
     const matches = RE_PROP_SET.exec(param);
 
@@ -66,15 +97,35 @@ export default class Visitor {
     }
 
     const setName = matches[2];
+    const parent = atRule.parent;
 
-    if (setName in this.cache) {
-      atRule.replaceWith(this.cache[setName].nodes);
-    } else {
+    if (!(setName in this.cache)) {
       atRule.warn(this.result,
         `No custom property set declared for \`${setName}\`.`
       );
+
+      return;
     }
+
+    if (this.options.preserve) {
+      parent.insertBefore(atRule, this.cache[setName].nodes);
+
+      return;
+    }
+
+    atRule.replaceWith(this.cache[setName].nodes);
   }
+}
+
+
+/**
+ * Helper: return whether the rule is a custom property set definition.
+ * @param {Object} rule
+ * @return {Boolean}
+ */
+function isDefinition(rule) {
+  return (rule.selector && RE_PROP_SET.exec(rule.selector))
+    && (rule.parent && rule.parent.selector && rule.parent.selector === ':root');
 }
 
 

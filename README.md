@@ -74,6 +74,13 @@ output:
 }
 ```
 
+## options
+
+### `preserve`
+type: `Boolean`  
+default: `false`  
+Allow for keeping resolved declarations and `@apply` rules alongside.
+
 
 ## Credits
 

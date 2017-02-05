@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
 ## [Unreleased]
+### Added
+  * A new `preserve` option.
+    Allow for keeping resolved declarations and `@apply` rules alongside.
 
 ## [0.4.0] - 2016-09-13
 ### Changed
