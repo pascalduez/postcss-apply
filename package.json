@@ -28,7 +28,7 @@
   ],
   "scripts": {
     "lint": "eslint ./src",
-    "test": "jest",
+    "test": "jest"
   },
   "jest": {
     "testEnvironment": "node",
@@ -49,6 +49,7 @@
     "eslint": "^3.17.0",
     "eslint-config-airbnb-base": "^11.1.1",
     "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jest": "^19.0.1",
     "jest-cli": "^19.0.2",
     "opn-cli": "^3.0.1",
     "postcss-custom-properties": "^5.0.2",
