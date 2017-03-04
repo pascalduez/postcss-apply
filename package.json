@@ -27,7 +27,7 @@
     "UNLICENSE"
   ],
   "scripts": {
-    "lint": "eslint ./src",
+    "lint": "eslint ./src ./test",
     "typecheck": "flow check ./src",
     "typecheck:coverage": "flow-coverage-report -t text -t html -i './src/*.js'",
     "test": "jest"
