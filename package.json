@@ -29,7 +29,6 @@
   "scripts": {
     "lint": "eslint ./src",
     "test": "jest",
-    "watch:test": "jest --watch"
   },
   "jest": {
     "testEnvironment": "node",
