@@ -1,7 +1,8 @@
+// @flow
 import { plugin } from 'postcss';
-import Visitor from './visitor';
+import Visitor, { type Options } from './visitor';
 
-export default plugin('postcss-apply', options => (css, result) => {
+export default plugin('postcss-apply', (options: Options) => (css: Object, result: Object) => {
   const visitor = new Visitor(options);
   visitor.result = result;
 

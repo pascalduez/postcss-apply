@@ -28,6 +28,8 @@
   ],
   "scripts": {
     "lint": "eslint ./src",
+    "typecheck": "flow check ./src",
+    "typecheck:coverage": "flow-coverage-report -t text -t html -i './src/*.js'",
     "test": "jest"
   },
   "jest": {
@@ -46,11 +48,15 @@
     "babel-plugin-transform-class-properties": "^6.23.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-env": "^1.2.0",
+    "babel-preset-flow": "^6.23.0",
     "coveralls": "^2.11.16",
     "eslint": "^3.17.0",
     "eslint-config-airbnb-base": "^11.1.1",
+    "eslint-plugin-flowtype": "^2.30.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jest": "^19.0.1",
+    "flow-bin": "^0.40.0",
+    "flow-coverage-report": "^0.3.0",
     "jest-cli": "^19.0.2",
     "opn-cli": "^3.0.1",
     "postcss-custom-properties": "^5.0.2",
