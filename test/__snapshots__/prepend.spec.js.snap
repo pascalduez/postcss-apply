@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`prepend should be able to be nested inside a CSS declared set 1`] = `
+".dummy {
+  color: tomato;
+}"
+`;
+
+exports[`prepend should override sets from options with CSS declared ones 1`] = `
+".dummy {
+  padding: none;
+  color: orangeRed;
+}"
+`;
+
+exports[`prepend should prepend sets from options 1`] = `
+".dummy {
+  color: tomato;
+  font-size: 1.4rem;
+  padding: 0 1rem;
+}"
+`;

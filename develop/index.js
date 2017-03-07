@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import fs from 'fs';
 import path from 'path';
 import postcss from 'postcss';
@@ -13,7 +14,7 @@ postcss()
   .use(plugin)
   .use(reporter)
   .process(input)
-  .then(result => {
+  .then((result) => {
     console.log(result.css);
   })
   .catch(console.error);

@@ -6,6 +6,8 @@ export default plugin('postcss-apply', (options: Options) => (css: Object, resul
   const visitor = new Visitor(options);
   visitor.result = result;
 
+  visitor.prepend();
+
   css.walkRules(visitor.collect);
 
   visitor.resolveNested();

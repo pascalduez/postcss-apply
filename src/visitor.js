@@ -1,10 +1,15 @@
 // @flow
 import balanced from 'balanced-match';
+import postcss from 'postcss';
+import kebabify from './utils';
 
 const RE_PROP_SET = /^(--)([\w-]+)(\s*)([:]?)$/;
 
 export type Options = {
   preserve?: boolean,
+  sets?: { [key: string]: {
+    [key: string]: string,
+  }},
 };
 
 type Node = Object;
@@ -18,29 +23,53 @@ type Rule = {
   warn: () => void,
   clone: () => Rule,
   remove: () => void,
+  append: () => void,
+  prepend: () => void,
   insertBefore: () => void,
   replaceWith: () => void,
-  walkRules: () => void,
 };
 
 type AtRule = {
   params: string,
-  walkAtRules: () => void,
 } & Rule;
 
 
 export default class Visitor {
-
   cache = {};
   result = {};
   options: Options = {};
-  defaults: Options = { preserve: false };
+  defaults: Options = {
+    preserve: false,
+    sets: {},
+  };
 
   constructor(options: Options) {
     this.options = {
       ...this.defaults,
       ...options,
     };
+  }
+
+  /**
+   * Prepend JS defined sets into the cache before parsing.
+   * This means CSS defined sets will overrides them if they share the same name.
+   */
+  prepend = () => {
+    const sets = this.options.sets;
+
+    // $FlowFixMe
+    Object.keys(sets).forEach((setName: string) => {
+      const newRule: Rule = postcss.rule({ selector: `--${setName}` });
+
+      // $FlowFixMe
+      Object.entries(sets[setName]).forEach(([prop, value]) => {
+        newRule.prepend(
+          postcss.decl({ prop: kebabify(prop), value })
+        );
+      });
+
+      this.cache[setName] = newRule;
+    });
   }
 
   /**

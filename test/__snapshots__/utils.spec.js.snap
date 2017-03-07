@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`kekabify should convert camelCase properties to kebab-case 1`] = `
+Array [
+  "border-radius",
+  "background-color",
+  "background-color",
+  "font-size",
+  "font-size",
+  "border-top-left-radius",
+  "-moz-whatever",
+  "-webkit-who-cares",
+  "--custom-prop",
+  "--custom-prop",
+  "--custom-prop",
+]
+`;

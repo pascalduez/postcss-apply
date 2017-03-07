@@ -79,7 +79,14 @@ output:
 ### `preserve`
 type: `Boolean`  
 default: `false`  
-Allow for keeping resolved declarations and `@apply` rules alongside.
+Allows for keeping resolved declarations and `@apply` rules alongside.
+
+### `sets`  
+type: `Object`  
+default: `{}`  
+Allows you to pass an object of custom property sets for `:root`.
+These definitions will be prepended, in such overriden by the one declared in CSS if they share the same name.
+The keys are automatically prefixed with the CSS `--` to make it easier to share sets in your codebase.
 
 
 ## Credits
