@@ -10,7 +10,7 @@
 Aka `@apply rule`.  
 Spec (editor's draft): https://tabatkins.github.io/specs/css-apply-rule  
 Browser support: https://www.chromestatus.com/feature/5753701012602880  
-Refers to [`postcss-custom-properties`](https://github.com/postcss/postcss-custom-properties#postcss-custom-properties-) for DOMless limitations, although being future proof and spec compliant is the plugin primary goal.
+Refers to [`postcss-custom-properties`](https://github.com/postcss/postcss-custom-properties#postcss-custom-properties-) for DOMless limitations.
 
 
 ## Installation
@@ -23,54 +23,83 @@ npm install postcss-apply --save-dev
 ## Usage
 
 ```js
-var fs = require('fs');
-var postcss = require('postcss');
-var apply = require('postcss-apply');
+const fs = require('fs');
+const postcss = require('postcss');
+const apply = require('postcss-apply');
 
-var input = fs.readFileSync('input.css', 'utf8');
+const input = fs.readFileSync('input.css', 'utf8');
 
 postcss()
   .use(apply)
   .process(input)
-  .then(function (result) {
+  .then((result) => {
     fs.writeFileSync('output.css', result.css);
   });
 ```
 
 ## Examples
 
-input:
+### In CSS declared sets
+
 ```css
+/* input */
+
 :root {
   --toolbar-theme: {
     background-color: rebeccapurple;
     color: white;
     border: 1px solid green;
   };
-  --toolbar-title-theme: {
-    color: green;
-  };
 }
 
 .Toolbar {
   @apply --toolbar-theme;
 }
-
-.Toolbar-title {
-  @apply --toolbar-title-theme;
-}
 ```
 
-output:
 ```css
+/* output */
+
 .Toolbar {
   background-color: rebeccapurple;
   color: white;
   border: 1px solid green;
 }
+```
 
-.Toolbar-title {
-  color: green;
+### In JS declared sets
+
+```js
+const themes = {
+  /* Set names won't be transformed, just `--` will be prepended. */
+  'toolbar-theme': {
+    /* Declaration properties can either be camel or kebab case. */
+    backgroundColor: 'rebeccapurple',
+    color: 'white',
+    border: '1px solid green',
+  },
+};
+
+[...]
+postcss().use(apply({ sets: themes }))
+[...]
+```
+
+```css
+/* input */
+
+.Toolbar {
+  @apply --toolbar-theme;
+}
+```
+
+```css
+/* output */
+
+.Toolbar {
+  background-color: rebeccapurple;
+  color: white;
+  border: 1px solid green;
 }
 ```
 
@@ -79,7 +108,14 @@ output:
 ### `preserve`
 type: `Boolean`  
 default: `false`  
-Allow for keeping resolved declarations and `@apply` rules alongside.
+Allows for keeping resolved declarations and `@apply` rules alongside.
+
+### `sets`  
+type: `Object`  
+default: `{}`  
+Allows you to pass an object of custom property sets for `:root`.
+These definitions will be prepended, in such overriden by the one declared in CSS if they share the same name.
+The keys are automatically prefixed with the CSS `--` to make it easier to share sets in your codebase.
 
 
 ## Credits
