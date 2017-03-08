@@ -30,8 +30,16 @@
     "lint": "eslint ./src ./test",
     "typecheck": "flow check ./src",
     "typecheck:coverage": "flow-coverage-report -t text -t html -i './src/*.js'",
+    "validate": "run-s lint typecheck",
     "test": "jest",
-    "test:ci": "run-s lint 'test -- --coverage'"
+    "test:cover": "run-s 'test -- --coverage'",
+    "test:cover:browse": "run-s test:cover && opn ./coverage/lcov-report/index.html",
+    "test:ci": "run-s lint test:cover",
+    "develop": "babel-node ./develop",
+    "clean": "rm -rf ./dist",
+    "build:js": "babel ./src -d ./dist",
+    "build": "run-s clean build:*",
+    "prepublish": "run-s validate test:cover build"
   },
   "jest": {
     "testEnvironment": "node",
