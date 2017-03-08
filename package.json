@@ -68,6 +68,7 @@
     "flow-coverage-report": "^0.3.0",
     "jest-cli": "^19.0.2",
     "npm-run-all": "^4.0.2",
+    "opn-cli": "^3.1.0",
     "postcss-custom-properties": "^5.0.2",
     "postcss-reporter": "^3.0.0"
   }
