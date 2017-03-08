@@ -30,7 +30,8 @@
     "lint": "eslint ./src ./test",
     "typecheck": "flow check ./src",
     "typecheck:coverage": "flow-coverage-report -t text -t html -i './src/*.js'",
-    "test": "jest"
+    "test": "jest",
+    "test:ci": "npm-run-all lint test"
   },
   "jest": {
     "testEnvironment": "node",
@@ -50,7 +51,6 @@
     "babel-preset-env": "^1.2.1",
     "babel-preset-flow": "^6.23.0",
     "common-tags": "^1.4.0",
-    "coveralls": "^2.12.0",
     "eslint": "^3.17.1",
     "eslint-config-airbnb-base": "^11.1.1",
     "eslint-plugin-flowtype": "^2.30.2",
@@ -59,7 +59,7 @@
     "flow-bin": "^0.41.0",
     "flow-coverage-report": "^0.3.0",
     "jest-cli": "^19.0.2",
-    "opn-cli": "^3.0.1",
+    "npm-run-all": "^4.0.2",
     "postcss-custom-properties": "^5.0.2",
     "postcss-reporter": "^3.0.0"
   }

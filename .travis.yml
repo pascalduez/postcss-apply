@@ -5,13 +5,15 @@ node_js:
   - '6'
   - 'stable'
 
-before_install:
-  - npm i npm@latest -g
-
 sudo: false
 
 git:
   depth: 10
 
-script: make test
-after_success: make coveralls
+before_install:
+  - npm i npm@latest -g
+  - npm i codecov -g
+
+script: npm run test:ci
+
+after_success: codecov
