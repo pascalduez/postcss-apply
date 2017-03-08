@@ -2,7 +2,7 @@
 
 [![npm version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
-[![Coverage Status][coveralls-image]][coveralls-url]
+[![Coverage Status][codecov-image]][codecov-url]
 
 
 > [PostCSS] plugin enabling custom properties sets references
@@ -135,8 +135,8 @@ postcss-apply is [unlicensed](http://unlicense.org/).
 [npm-image]: http://img.shields.io/npm/v/postcss-apply.svg?style=flat-square
 [travis-url]: https://travis-ci.org/pascalduez/postcss-apply?branch=master
 [travis-image]: http://img.shields.io/travis/pascalduez/postcss-apply.svg?style=flat-square
-[coveralls-url]: https://coveralls.io/r/pascalduez/postcss-apply
-[coveralls-image]: https://img.shields.io/coveralls/pascalduez/postcss-apply.svg?style=flat-square
+[codecov-url]: https://codecov.io/gh/pascalduez/postcss-apply
+[codecov-image]: https://img.shields.io/codecov/pascalduez/postcss-apply.svg?style=flat-square
 [depstat-url]: https://david-dm.org/pascalduez/postcss-apply
 [depstat-image]: https://david-dm.org/pascalduez/postcss-apply.svg?style=flat-square
 [license-image]: http://img.shields.io/npm/l/postcss-apply.svg?style=flat-square
