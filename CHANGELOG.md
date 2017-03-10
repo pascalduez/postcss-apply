@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.6.1] - 2017-03-10
+### Fixed
+  * A forgotten `console.log` in sources.
+
 ## [0.6.0] - 2017-03-08
 ### Added
   * A new `sets` option.
@@ -41,7 +45,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.1.0] - 2015-08-26
   * Initial release.
 
-[Unreleased]: https://github.com/pascalduez/postcss-apply/compare/0.6.0...HEAD
+[Unreleased]: https://github.com/pascalduez/postcss-apply/compare/0.6.1...HEAD
+[0.6.1]: https://github.com/pascalduez/postcss-apply/compare/0.6.0...0.6.1
 [0.6.0]: https://github.com/pascalduez/postcss-apply/compare/0.5.0...0.6.0
 [0.5.0]: https://github.com/pascalduez/postcss-apply/compare/0.4.0...0.5.0
 [0.4.0]: https://github.com/pascalduez/postcss-apply/compare/0.3.0...0.4.0
