@@ -10,10 +10,14 @@ sudo: false
 git:
   depth: 10
 
-before_install:
-  - npm i npm@latest -g
-  - npm i codecov -g
+before_script:
+  - yarn global add codecov
 
-script: npm run test:ci
+script: yarn run test:ci
 
 after_success: codecov
+
+cache:
+  yarn: true
+  directories:
+    - node_modules
