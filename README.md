@@ -1,5 +1,7 @@
 # postcss-apply
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/pascalduez/postcss-apply.svg)](https://greenkeeper.io/)
+
 [![npm version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 [![Coverage Status][codecov-image]][codecov-url]
