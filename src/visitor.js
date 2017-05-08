@@ -192,7 +192,7 @@ function isDefinition(rule: Rule): boolean {
 
 
 /**
- * Helper: allow parens usage in `@apply` rule declaration.
+ * Helper: allow parens usage in `@apply` AtRule declaration.
  * This is for Polymer integration.
  */
 function getParamValue(param: string): string {
@@ -201,10 +201,10 @@ function getParamValue(param: string): string {
 
 
 /**
- * Helper: remove excesive declarations indentation.
+ * Helper: remove excessive declarations indentation.
  */
 function cleanIndent(rule: Rule) {
-  rule.walkDecls((decl) => {
+  rule.walkDecls((decl: Decl) => {
     if (typeof decl.raws.before === 'string') {
       decl.raws.before = decl.raws.before.replace(/[^\S\x0a\x0d]{2,}/, '  ');
     }
@@ -213,7 +213,7 @@ function cleanIndent(rule: Rule) {
 
 
 /**
- * Helper: correctly handle propert sets removol and semi-colons.
+ * Helper: correctly handle property sets removal and semi-colons.
  * @See: postcss/postcss#1014
  */
 function safeRemoveRule(rule: Rule) {
