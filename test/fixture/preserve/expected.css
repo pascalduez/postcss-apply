@@ -52,6 +52,7 @@
 .nested-set-two {
   color: tomato;
   color: green;
+
   color: orange;
   @apply --nested-set-two;
 }

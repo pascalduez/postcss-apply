@@ -1,10 +1,11 @@
 import postcss from 'postcss';
+import { stripIndent } from 'common-tags';
 import customProperties from 'postcss-custom-properties';
 import plugin from '../src';
 
 describe('integration', () => {
   test('custom properties declaration without plugin', async () => {
-    const input = `
+    const input = stripIndent`
       :root {
         --should-stay: 'test';
         --should-be-removed: {
@@ -12,7 +13,7 @@ describe('integration', () => {
         };
       }`;
 
-    const expected = `
+    const expected = stripIndent`
       :root {
         --should-stay: 'test';
       }`;
@@ -27,7 +28,7 @@ describe('integration', () => {
 
 
   test('custom properties declaration with plugin first', async () => {
-    const input = `
+    const input = stripIndent`
       :root {
         --should-be-pruned: 'pruned';
         --should-be-removed: {
@@ -48,7 +49,7 @@ describe('integration', () => {
 
 
   test('custom properties declaration with plugin last', async () => {
-    const input = `
+    const input = stripIndent`
       :root {
         --should-be-pruned: 'pruned';
         --should-be-removed: {
@@ -69,7 +70,7 @@ describe('integration', () => {
 
 
   test('custom properties without plugin', async () => {
-    const input = `
+    const input = stripIndent`
       :root {
         --should-stay: 'test';
         --should-be-removed: {
@@ -82,7 +83,7 @@ describe('integration', () => {
         content: var(--should-stay);
       }`;
 
-    const expected = `
+    const expected = stripIndent`
       :root {
         --should-stay: 'test';
       }
@@ -102,7 +103,7 @@ describe('integration', () => {
 
 
   test('custom properties with plugin', async () => {
-    const input = `
+    const input = stripIndent`
       :root {
         --custom-prop: 'prop';
         --custom-prop-set: {
@@ -115,7 +116,7 @@ describe('integration', () => {
         content: var(--custom-prop);
       }`;
 
-    const expected = `
+    const expected = stripIndent`
       .test {
         content: 'set';
         content: 'prop';
@@ -132,7 +133,7 @@ describe('integration', () => {
 
 
   test('custom properties nested without plugin', async () => {
-    const input = `
+    const input = stripIndent`
       :root {
         --custom-prop: 'prop';
         --custom-prop-set: {
@@ -145,7 +146,7 @@ describe('integration', () => {
         content: var(--custom-prop);
       }`;
 
-    const expected = `
+    const expected = stripIndent`
       :root {
         --custom-prop: 'prop';
       }
@@ -166,7 +167,7 @@ describe('integration', () => {
 
 
   test('custom properties nested with plugin first', async () => {
-    const input = `
+    const input = stripIndent`
       :root {
         --custom-prop: 'prop';
         --custom-prop-set: {
@@ -179,7 +180,7 @@ describe('integration', () => {
         content: var(--custom-prop);
       }`;
 
-    const expected = `
+    const expected = stripIndent`
       .test {
         content: 'prop';
         content: 'prop';
@@ -196,7 +197,7 @@ describe('integration', () => {
 
 
   test('custom properties nested with plugin last', async () => {
-    const input = `
+    const input = stripIndent`
       :root {
         --custom-prop: 'prop';
         --custom-prop-set: {
@@ -209,7 +210,7 @@ describe('integration', () => {
         content: var(--custom-prop);
       }`;
 
-    const expected = `
+    const expected = stripIndent`
       .test {
         content: 'prop';
         content: 'prop';

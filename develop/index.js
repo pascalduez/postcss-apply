@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import postcss from 'postcss';
 import reporter from 'postcss-reporter';
-import plugin from '../';
+import plugin from '../src';
 
 const read = name =>
   fs.readFileSync(path.join(process.cwd(), 'test', 'fixture', name), 'utf8');
