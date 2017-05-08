@@ -1,4 +1,6 @@
 // @flow
+/* eslint-disable no-param-reassign */
+
 import balanced from 'balanced-match';
 import postcss from 'postcss';
 import kebabify from './utils';
@@ -13,6 +15,7 @@ export type Options = {
 };
 
 type Node = Object;
+type Decl = Object;
 
 type Rule = {
   type: string,
@@ -20,6 +23,7 @@ type Rule = {
   selectors: Array<string>,
   nodes: Array<Node>,
   parent: Rule,
+  raws: Object,
   warn: () => void,
   clone: () => Rule,
   remove: () => void,
@@ -27,6 +31,7 @@ type Rule = {
   prepend: () => void,
   insertBefore: () => void,
   replaceWith: () => void,
+  walkDecls: (rule: Decl) => void,
 };
 
 type AtRule = {
@@ -106,7 +111,7 @@ export default class Visitor {
     this.cache[setName] = newRule;
 
     if (!this.options.preserve) {
-      rule.remove();
+      safeRemoveRule(rule);
     }
 
     if (!parent.nodes.length) {
@@ -121,6 +126,8 @@ export default class Visitor {
     Object.keys(this.cache).forEach((rule: string) => {
       this.cache[rule].walkAtRules('apply', (atRule: AtRule) => {
         this.resolve(atRule);
+
+        // @TODO honor `preserve` option.
         atRule.remove();
       });
     });
@@ -161,13 +168,16 @@ export default class Visitor {
       return;
     }
 
+    const newRule = this.cache[setName].clone();
+    cleanIndent(newRule);
+
     if (this.options.preserve) {
-      parent.insertBefore(atRule, this.cache[setName].nodes);
+      parent.insertBefore(atRule, newRule.nodes);
 
       return;
     }
 
-    atRule.replaceWith(this.cache[setName].nodes);
+    atRule.replaceWith(newRule.nodes);
   }
 }
 
@@ -182,9 +192,34 @@ function isDefinition(rule: Rule): boolean {
 
 
 /**
- * Helper: allow parens usage in `@apply` rule declaration.
+ * Helper: allow parens usage in `@apply` AtRule declaration.
  * This is for Polymer integration.
  */
 function getParamValue(param: string): string {
   return /^\(/.test(param) ? balanced('(', ')', param).body : param;
+}
+
+
+/**
+ * Helper: remove excessive declarations indentation.
+ */
+function cleanIndent(rule: Rule) {
+  rule.walkDecls((decl: Decl) => {
+    if (typeof decl.raws.before === 'string') {
+      decl.raws.before = decl.raws.before.replace(/[^\S\x0a\x0d]{2,}/, '  ');
+    }
+  });
+}
+
+
+/**
+ * Helper: correctly handle property sets removal and semi-colons.
+ * @See: postcss/postcss#1014
+ */
+function safeRemoveRule(rule: Rule) {
+  if (rule === rule.parent.last && rule.raws.ownSemicolon) {
+    rule.parent.raws.semicolon = true;
+  }
+
+  rule.remove();
 }
