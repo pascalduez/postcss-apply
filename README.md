@@ -5,13 +5,18 @@
 [![Coverage Status][codecov-image]][codecov-url]
 
 
-> [PostCSS] plugin enabling custom properties sets references
+> [PostCSS] plugin enabling custom property sets references
 
 Aka `@apply rule`.  
 Spec (editor's draft): https://tabatkins.github.io/specs/css-apply-rule  
 Browser support: https://www.chromestatus.com/feature/5753701012602880  
 Refers to [`postcss-custom-properties`](https://github.com/postcss/postcss-custom-properties#postcss-custom-properties-) for DOMless limitations.
 
+#### /!\ Heads up  
+The `@apply` rule and custom property sets most likely won't get any real support from browser vendors and the spec is yet considered deprecated.  
+See:
+  * https://discourse.wicg.io/t/needed-new-champion-for-css-apply-rule/2012
+  * https://github.com/w3c/webcomponents/issues/300#issuecomment-276210974
 
 ## Installation
 
