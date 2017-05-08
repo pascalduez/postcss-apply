@@ -1,6 +1,6 @@
 {
   "name": "postcss-apply",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "PostCSS plugin enabling custom properties sets references",
   "keywords": [
     "css",
