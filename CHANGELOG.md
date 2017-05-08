@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
 ## [Unreleased]
+### Changed
+  * PostCSS 6 upgrade.
+
+### Fixed
+  * Polyfill `Object.entries` for node versions lower than 7.
 
 ## [0.6.1] - 2017-03-10
 ### Fixed
