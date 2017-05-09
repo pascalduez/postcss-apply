@@ -7,7 +7,6 @@
 
 > [PostCSS] plugin enabling custom property sets references
 
-Aka `@apply` rule.  
 Refers to [`postcss-custom-properties`](https://github.com/postcss/postcss-custom-properties#postcss-custom-properties-) for DOMless limitations.
 
 
