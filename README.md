@@ -18,7 +18,8 @@ Browser support: https://www.chromestatus.com/feature/5753701012602880
 :warning: The `@apply` rule and custom property sets most likely won't get any more support from browser vendors as the spec is yet considered deprecated and [newer solutions](https://tabatkins.github.io/specs/css-shadow-parts) are being discussed.  
 Refers to following links for more infos:
   * https://discourse.wicg.io/t/needed-new-champion-for-css-apply-rule/2012
-  * https://github.com/w3c/webcomponents/issues/300#issuecomment-276210974
+  * https://github.com/w3c/webcomponents/issues/300#issuecomment-276210974  
+  * http://www.xanthir.com/b4o00
   
 
 ## Installation
