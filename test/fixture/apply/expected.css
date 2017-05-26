@@ -24,3 +24,11 @@
 
   color: orange;
 }
+
+.nested-deeper {
+  @media screen {
+  background-color: hsl(120, 70%, 95%);
+  border-radius: 4px;
+  border: 1px solid var(--theme-color late);
+  }
+}

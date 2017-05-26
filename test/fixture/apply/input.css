@@ -40,3 +40,9 @@
 .nested-set-two {
   @apply --nested-set-two;
 }
+
+.nested-deeper {
+  @media screen {
+    @apply --toolbar-theme;
+  }
+}
