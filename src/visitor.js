@@ -137,7 +137,13 @@ export default class Visitor {
    * Replace `@apply` at-rules declarations with provided custom property set.
    */
   resolve = (atRule: AtRule) => {
-    if (atRule.parent.type !== 'rule') {
+    let ancestor: Rule = atRule.parent;
+
+    while (ancestor && ancestor.type !== 'rule') {
+      ancestor = ancestor.parent;
+    }
+
+    if (!ancestor) {
       atRule.warn(this.result,
         'The @apply rule can only be declared inside Rule type nodes.'
       );
