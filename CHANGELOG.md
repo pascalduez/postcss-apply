@@ -6,7 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
-## [Unreleased]
+## [0.8.0] - 2017-05-28
+### Added
+  * Support for ancestor rules for `@apply` declarations.
+    Allows for deep nested declarations like atRules.
 
 ## [0.7.0] - 2017-05-08
 ### Changed
@@ -52,7 +55,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.1.0] - 2015-08-26
   * Initial release.
 
-[Unreleased]: https://github.com/pascalduez/postcss-apply/compare/0.7.0...HEAD
+[Unreleased]: https://github.com/pascalduez/postcss-apply/compare/0.8.0...HEAD
+[0.8.0]: https://github.com/pascalduez/postcss-apply/compare/0.7.0...0.8.0
 [0.7.0]: https://github.com/pascalduez/postcss-apply/compare/0.6.1...0.7.0
 [0.6.1]: https://github.com/pascalduez/postcss-apply/compare/0.6.0...0.6.1
 [0.6.0]: https://github.com/pascalduez/postcss-apply/compare/0.5.0...0.6.0
