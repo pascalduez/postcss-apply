@@ -1,5 +1,6 @@
 # postcss-apply
 
+[![CSS Standard Status][css-image]][css-url]
 [![npm version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 [![Coverage Status][codecov-image]][codecov-url]
@@ -141,6 +142,8 @@ postcss-apply is [unlicensed](http://unlicense.org/).
 
 [PostCSS]: https://github.com/postcss/postcss
 
+[css-url]: https://jonathantneal.github.io/css-db/#css-apply-rule
+[css-image]: https://jonathantneal.github.io/css-db/badge/css-apply-rule.svg
 [npm-url]: https://www.npmjs.org/package/postcss-apply
 [npm-image]: http://img.shields.io/npm/v/postcss-apply.svg?style=flat-square
 [travis-url]: https://travis-ci.org/pascalduez/postcss-apply?branch=master
