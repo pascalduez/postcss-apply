@@ -4,26 +4,73 @@ import plugin from '../src';
 
 
 describe('prepend', () => {
-  it('should prepend sets from options', async () => {
-    const input = stripIndent`
-      .dummy {
-        @apply --justatest;
-      }
-    `;
+  describe('should prepend sets from options', () => {
+    it('for a object set', async () => {
+      const input = stripIndent`
+        .dummy {
+          @apply --justatest;
+        }
+      `;
 
-    const sets = {
-      justatest: {
-        padding: '0 1rem',
-        fontSize: '1.4rem',
-        color: 'tomato',
-      },
-    };
+      const sets = {
+        justatest: {
+          padding: '0 1rem',
+          fontSize: '1.4rem',
+          color: 'tomato',
+        },
+      };
 
-    const result = await postcss()
-      .use(plugin({ sets }))
-      .process(input);
+      const result = await postcss()
+        .use(plugin({ sets }))
+        .process(input);
 
-    expect(result.css).toMatchSnapshot();
+      expect(result.css).toMatchSnapshot();
+    });
+
+    it('for a string set', async () => {
+      const input = stripIndent`
+        .dummy {
+          @apply --justatest;
+        }
+      `;
+
+      const sets = {
+        justatest: `
+          fontSize: 1.4rem;
+
+          @media (width >= 500px) {
+            fontSize: 2.4rem;
+          }
+        `,
+      };
+
+      const result = await postcss()
+        .use(plugin({ sets }))
+        .process(input);
+
+      expect(result.css).toMatchSnapshot();
+    });
+
+    it('throws if the set is not an object or a string', async () => {
+      const input = stripIndent`
+        .dummy {
+          @apply --justatest;
+        }
+      `;
+
+      const sets = {
+        justatest: () => {},
+      };
+
+      expect(() => {
+        postcss() // eslint-disable-line no-unused-expressions
+         .use(plugin({ sets }))
+         .process(input)
+         .css;
+      }).toThrowError(
+        'Unrecognized set type `function`, must be an object or string.'
+      );
+    });
   });
 
   it('should override sets from options with CSS declared ones', async () => {

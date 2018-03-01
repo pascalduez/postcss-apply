@@ -13,10 +13,19 @@ exports[`prepend should override sets from options with CSS declared ones 1`] = 
 }"
 `;
 
-exports[`prepend should prepend sets from options 1`] = `
+exports[`prepend should prepend sets from options for a object set 1`] = `
 ".dummy {
   color: tomato;
   font-size: 1.4rem;
   padding: 0 1rem;
+}"
+`;
+
+exports[`prepend should prepend sets from options for a string set 1`] = `
+".dummy {
+  fontSize: 1.4rem;
+          @media (width >= 500px) {
+  fontSize: 2.4rem;
+          }
 }"
 `;
