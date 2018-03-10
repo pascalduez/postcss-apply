@@ -39,7 +39,8 @@
     "clean": "rm -rf dist/",
     "build:js": "babel src/ -d dist/",
     "build": "run-s clean build:*",
-    "prepublish": "run-s validate test:cover build"
+    "prepublishOnly": "run-s validate test:cover",
+    "prepare": "run-s build"
   },
   "jest": {
     "testEnvironment": "node",
