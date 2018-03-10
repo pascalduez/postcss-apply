@@ -67,11 +67,21 @@ export default class Visitor {
       const newRule: Rule = postcss.rule({ selector: `--${setName}` });
 
       // $FlowFixMe
-      Object.entries(sets[setName]).forEach(([prop, value]) => {
-        newRule.prepend(
-          postcss.decl({ prop: kebabify(prop), value })
+      const set = sets[setName];
+
+      if (typeof set === 'string') {
+        newRule.prepend(set);
+      } else if (typeof set === 'object') {
+        Object.entries(set).forEach(([prop, value]) => {
+          newRule.prepend(
+            postcss.decl({ prop: kebabify(prop), value })
+          );
+        });
+      } else {
+        throw new Error(
+          `Unrecognized set type \`${typeof set}\`, must be an object or string.`
         );
-      });
+      }
 
       this.cache[setName] = newRule;
     });
