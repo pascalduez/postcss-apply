@@ -3,15 +3,17 @@
 
 import balanced from 'balanced-match';
 import postcss from 'postcss';
-import kebabify from './utils';
+import { kebabify, isPlainObject } from './utils';
 
 const RE_PROP_SET = /^(--)([\w-]+)(\s*)([:]?)$/;
 
 export type Options = {
   preserve?: boolean,
-  sets?: { [key: string]: {
-    [key: string]: string,
-  }},
+  sets?: {
+    [key: string]: {
+      [key: string]: string,
+    },
+  },
 };
 
 type Node = Object;
@@ -38,7 +40,6 @@ type AtRule = {
   params: string,
 } & Rule;
 
-
 export default class Visitor {
   cache = {};
   result = {};
@@ -60,7 +61,7 @@ export default class Visitor {
    * This means CSS defined sets will overrides them if they share the same name.
    */
   prepend = () => {
-    const sets = this.options.sets;
+    const { sets } = this.options;
 
     // $FlowFixMe
     Object.keys(sets).forEach((setName: string) => {
@@ -71,11 +72,9 @@ export default class Visitor {
 
       if (typeof set === 'string') {
         newRule.prepend(set);
-      } else if (typeof set === 'object') {
+      } else if (isPlainObject(set)) {
         Object.entries(set).forEach(([prop, value]) => {
-          newRule.prepend(
-            postcss.decl({ prop: kebabify(prop), value })
-          );
+          newRule.prepend(postcss.decl({ prop: kebabify(prop), value }));
         });
       } else {
         throw new Error(
@@ -85,7 +84,7 @@ export default class Visitor {
 
       this.cache[setName] = newRule;
     });
-  }
+  };
 
   /**
    * Collect all `:root` declared property sets and save them.
@@ -101,10 +100,11 @@ export default class Visitor {
     const parent: Rule = rule.parent;
 
     if (parent.selector !== ':root') {
-      rule.warn(this.result,
+      rule.warn(
+        this.result,
         'Custom property set ignored: not scoped to top-level `:root` ' +
-        `(--${setName}` +
-        `${parent.type === 'rule' ? ` declared in ${parent.selector}` : ''})`
+          `(--${setName}` +
+          `${parent.type === 'rule' ? ` declared in ${parent.selector}` : ''})`
       );
 
       if (parent.type === 'root') {
@@ -127,7 +127,7 @@ export default class Visitor {
     if (!parent.nodes.length) {
       parent.remove();
     }
-  }
+  };
 
   /**
    * Replace nested `@apply` at-rules declarations.
@@ -141,7 +141,7 @@ export default class Visitor {
         atRule.remove();
       });
     });
-  }
+  };
 
   /**
    * Replace `@apply` at-rules declarations with provided custom property set.
@@ -154,7 +154,8 @@ export default class Visitor {
     }
 
     if (!ancestor) {
-      atRule.warn(this.result,
+      atRule.warn(
+        this.result,
         'The @apply rule can only be declared inside Rule type nodes.'
       );
 
@@ -177,7 +178,8 @@ export default class Visitor {
     const parent: Rule = atRule.parent;
 
     if (!(setName in this.cache)) {
-      atRule.warn(this.result,
+      atRule.warn(
+        this.result,
         `No custom property set declared for \`${setName}\`.`
       );
 
@@ -194,18 +196,19 @@ export default class Visitor {
     }
 
     atRule.replaceWith(newRule.nodes);
-  }
+  };
 }
-
 
 /**
  * Helper: return whether the rule is a custom property set definition.
  */
 function isDefinition(rule: Rule): boolean {
-  return (!!rule.selector && RE_PROP_SET.exec(rule.selector))
-    && (rule.parent && !!rule.parent.selector && rule.parent.selector === ':root');
+  return (
+    !!rule.selector &&
+    RE_PROP_SET.exec(rule.selector) &&
+    (rule.parent && !!rule.parent.selector && rule.parent.selector === ':root')
+  );
 }
-
 
 /**
  * Helper: allow parens usage in `@apply` AtRule declaration.
@@ -214,7 +217,6 @@ function isDefinition(rule: Rule): boolean {
 function getParamValue(param: string): string {
   return /^\(/.test(param) ? balanced('(', ')', param).body : param;
 }
-
 
 /**
  * Helper: remove excessive declarations indentation.
@@ -226,7 +228,6 @@ function cleanIndent(rule: Rule) {
     }
   });
 }
-
 
 /**
  * Helper: correctly handle property sets removal and semi-colons.

@@ -22,7 +22,7 @@ Refers to following links for more infos:
   * https://github.com/w3c/webcomponents/issues/300#issuecomment-276210974  
   * http://www.xanthir.com/b4o00
   * https://github.com/w3c/csswg-drafts/issues/1047
-  
+
 
 ## Installation
 
@@ -122,9 +122,9 @@ default: `false`
 Allows for keeping resolved declarations and `@apply` rules alongside.
 
 ### `sets`  
-type: `{ [customPropertyName]: Object | String }`  
+type: `{ [customPropertyName: string]: Object | string }`  
 default: `{}`  
-Allows you to pass an object of custom property sets for `:root`.
+Allows you to pass an object or string of custom property sets for `:root`.
 These definitions will be prepended, in such overridden by the one declared in CSS if they share the same name.
 The keys are automatically prefixed with the CSS `--` to make it easier to share sets in your codebase.
 

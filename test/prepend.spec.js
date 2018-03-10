@@ -2,10 +2,9 @@ import postcss from 'postcss';
 import { stripIndent } from 'common-tags';
 import plugin from '../src';
 
-
 describe('prepend', () => {
   describe('should prepend sets from options', () => {
-    it('for a object set', async () => {
+    it('from an object set', async () => {
       const input = stripIndent`
         .dummy {
           @apply --justatest;
@@ -27,7 +26,7 @@ describe('prepend', () => {
       expect(result.css).toMatchSnapshot();
     });
 
-    it('for a string set', async () => {
+    it('from a string set', async () => {
       const input = stripIndent`
         .dummy {
           @apply --justatest;
@@ -64,9 +63,8 @@ describe('prepend', () => {
 
       expect(() => {
         postcss() // eslint-disable-line no-unused-expressions
-         .use(plugin({ sets }))
-         .process(input)
-         .css;
+          .use(plugin({ sets }))
+          .process(input).css;
       }).toThrowError(
         'Unrecognized set type `function`, must be an object or string.'
       );
