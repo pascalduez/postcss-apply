@@ -11,19 +11,18 @@ const read = name =>
 const expected = read('control/expected.css');
 const input = read('control/input.css');
 
-
 describe('control', () => {
   it('with no options', () =>
     postcss([plugin])
       .process(input)
-      .then((result) => {
+      .then(result => {
         expect(result.css).toBe(expected);
       }));
 
   it('with options', () =>
     postcss([plugin({})])
       .process(input)
-      .then((result) => {
+      .then(result => {
         expect(result.css).toBe(expected);
       }));
 
@@ -48,17 +47,21 @@ describe('control', () => {
     expect(result.messages[2].type).toBe('warning');
     expect(result.messages[3].type).toBe('warning');
 
-    expect(result.messages[0].text)
-      .toMatch(/Custom property set ignored: not scoped to top-level `:root`/);
+    expect(result.messages[0].text).toMatch(
+      /Custom property set ignored: not scoped to top-level `:root`/
+    );
 
-    expect(result.messages[1].text)
-      .toMatch(/Custom property set ignored: not scoped to top-level `:root`/);
+    expect(result.messages[1].text).toMatch(
+      /Custom property set ignored: not scoped to top-level `:root`/
+    );
 
-    expect(result.messages[2].text)
-      .toBe('No custom property set declared for `this-should-warn`.');
+    expect(result.messages[2].text).toBe(
+      'No custom property set declared for `this-should-warn`.'
+    );
 
-    expect(result.messages[3].text)
-      .toBe('The @apply rule can only be declared inside Rule type nodes.');
+    expect(result.messages[3].text).toBe(
+      'The @apply rule can only be declared inside Rule type nodes.'
+    );
 
     expect(processor.plugins[0].postcssPlugin).toBe(pluginName);
     expect(processor.plugins[0].postcssVersion).toBeDefined();

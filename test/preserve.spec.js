@@ -6,7 +6,6 @@ import plugin from '../src';
 const read = name =>
   fs.readFileSync(path.join(__dirname, 'fixture', name), 'utf8');
 
-
 describe('the `preserve` option', () => {
   it('should properly apply and preserve custom property sets', async () => {
     const input = read('preserve/input.css');

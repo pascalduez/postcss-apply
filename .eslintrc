@@ -5,6 +5,8 @@ extends:
   - "airbnb-base"
   - "plugin:flowtype/recommended"
   - "plugin:jest/recommended"
+  - "prettier"
+  - "prettier/flowtype"
 
 plugins:
   - "flowtype"

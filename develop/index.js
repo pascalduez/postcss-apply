@@ -14,7 +14,7 @@ postcss()
   .use(plugin)
   .use(reporter)
   .process(input)
-  .then((result) => {
+  .then(result => {
     console.log(result.css);
   })
   .catch(console.error);

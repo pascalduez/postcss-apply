@@ -6,7 +6,6 @@ import plugin from '../src';
 const read = name =>
   fs.readFileSync(path.join(__dirname, 'fixture', name), 'utf8');
 
-
 describe('apply', () => {
   it('should properly apply and remove custom property sets', async () => {
     const input = read('apply/input.css');

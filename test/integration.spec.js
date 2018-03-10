@@ -26,7 +26,6 @@ describe('integration', () => {
     expect(result.css).toBe(expected);
   });
 
-
   test('custom properties declaration with plugin first', async () => {
     const input = stripIndent`
       :root {
@@ -47,7 +46,6 @@ describe('integration', () => {
     expect(result.css).toBe(expected);
   });
 
-
   test('custom properties declaration with plugin last', async () => {
     const input = stripIndent`
       :root {
@@ -67,7 +65,6 @@ describe('integration', () => {
 
     expect(result.css).toBe(expected);
   });
-
 
   test('custom properties without plugin', async () => {
     const input = stripIndent`
@@ -101,7 +98,6 @@ describe('integration', () => {
     expect(result.css).toBe(expected);
   });
 
-
   test('custom properties with plugin', async () => {
     const input = stripIndent`
       :root {
@@ -130,7 +126,6 @@ describe('integration', () => {
 
     expect(result.css).toBe(expected);
   });
-
 
   test('custom properties nested without plugin', async () => {
     const input = stripIndent`
@@ -165,7 +160,6 @@ describe('integration', () => {
     expect(result.css).toBe(expected);
   });
 
-
   test('custom properties nested with plugin first', async () => {
     const input = stripIndent`
       :root {
@@ -194,7 +188,6 @@ describe('integration', () => {
 
     expect(result.css).toBe(expected);
   });
-
 
   test('custom properties nested with plugin last', async () => {
     const input = stripIndent`
