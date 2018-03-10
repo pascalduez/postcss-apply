@@ -18,6 +18,7 @@ export type Options = {
 
 type Node = Object;
 type Decl = Object;
+type Result = Object;
 
 type Rule = {
   type: string,
@@ -26,13 +27,13 @@ type Rule = {
   nodes: Array<Node>,
   parent: Rule,
   raws: Object,
-  warn: () => void,
+  warn: (result: Result, text: string, opts?: Object) => void,
   clone: () => Rule,
   remove: () => void,
   append: () => void,
-  prepend: () => void,
-  insertBefore: () => void,
-  replaceWith: () => void,
+  prepend: (children: Node | Array<Node> | Object | string) => void,
+  insertBefore: (node: Node, add: Node | Array<Node> | Object | string) => void,
+  replaceWith: (nodes: Array<Node>) => void,
   walkDecls: (rule: Decl) => void,
 };
 
