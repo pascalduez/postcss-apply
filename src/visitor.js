@@ -98,7 +98,7 @@ export default class Visitor {
     }
 
     const setName: string = matches[2];
-    const parent: Rule = rule.parent;
+    const { parent }: Rule = rule;
 
     if (parent.selector !== ':root') {
       rule.warn(
@@ -176,7 +176,7 @@ export default class Visitor {
     }
 
     const setName: string = matches[2];
-    const parent: Rule = atRule.parent;
+    const { parent }: Rule = atRule;
 
     if (!(setName in this.cache)) {
       atRule.warn(
@@ -225,7 +225,7 @@ function getParamValue(param: string): string {
 function cleanIndent(rule: Rule) {
   rule.walkDecls((decl: Decl) => {
     if (typeof decl.raws.before === 'string') {
-      decl.raws.before = decl.raws.before.replace(/[^\S\x0a\x0d]{2,}/, '  ');
+      decl.raws.before = decl.raws.before.replace(/[^\S\n\r]{2,}/, '  ');
     }
   });
 }
