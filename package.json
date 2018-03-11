@@ -73,7 +73,7 @@
     "jest-cli": "^22.4.2",
     "npm-run-all": "^4.1.2",
     "opn-cli": "^3.1.0",
-    "postcss-custom-properties": "^6.0.0",
-    "postcss-reporter": "^4.0.0"
+    "postcss-custom-properties": "^7.0.0",
+    "postcss-reporter": "^5.0.0"
   }
 }

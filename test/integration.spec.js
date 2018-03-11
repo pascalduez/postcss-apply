@@ -18,10 +18,9 @@ describe('integration', () => {
         --should-stay: 'test';
       }`;
 
-    const processor = postcss();
-    processor.use(plugin);
-
-    const result = await processor.process(input);
+    const result = await postcss()
+      .use(plugin)
+      .process(input, { from: undefined });
 
     expect(result.css).toBe(expected);
   });
@@ -35,13 +34,11 @@ describe('integration', () => {
         };
       }`;
 
-    const expected = '';
+    const expected = input;
 
-    const processor = postcss();
-    processor.use(customProperties);
-    processor.use(plugin);
-
-    const result = await processor.process(input);
+    const result = await postcss()
+      .use(customProperties)
+      .process(input, { from: undefined });
 
     expect(result.css).toBe(expected);
   });
@@ -55,13 +52,15 @@ describe('integration', () => {
         };
       }`;
 
-    const expected = '';
+    const expected = stripIndent`
+        :root {
+          --should-be-pruned: 'pruned';
+        }`;
 
-    const processor = postcss();
-    processor.use(plugin);
-    processor.use(customProperties);
-
-    const result = await processor.process(input);
+    const result = await postcss()
+      .use(plugin)
+      .use(customProperties)
+      .process(input, { from: undefined });
 
     expect(result.css).toBe(expected);
   });
@@ -90,10 +89,9 @@ describe('integration', () => {
         content: var(--should-stay);
       }`;
 
-    const processor = postcss();
-    processor.use(plugin);
-
-    const result = await processor.process(input);
+    const result = await postcss()
+      .use(plugin)
+      .process(input, { from: undefined });
 
     expect(result.css).toBe(expected);
   });
@@ -113,16 +111,20 @@ describe('integration', () => {
       }`;
 
     const expected = stripIndent`
+      :root {
+        --custom-prop: 'prop';
+      }
+
       .test {
         content: 'set';
         content: 'prop';
+        content: var(--custom-prop);
       }`;
 
-    const processor = postcss();
-    processor.use(customProperties);
-    processor.use(plugin);
-
-    const result = await processor.process(input);
+    const result = await postcss()
+      .use(customProperties)
+      .use(plugin)
+      .process(input, { from: undefined });
 
     expect(result.css).toBe(expected);
   });
@@ -151,11 +153,9 @@ describe('integration', () => {
         content: var(--custom-prop);
       }`;
 
-    const processor = postcss();
-    // processor.use(customProperties);
-    processor.use(plugin);
-
-    const result = await processor.process(input);
+    const result = await postcss()
+      .use(plugin)
+      .process(input, { from: undefined });
 
     expect(result.css).toBe(expected);
   });
@@ -175,16 +175,21 @@ describe('integration', () => {
       }`;
 
     const expected = stripIndent`
+      :root {
+        --custom-prop: 'prop';
+      }
+
       .test {
         content: 'prop';
+        content: var(--custom-prop);
         content: 'prop';
+        content: var(--custom-prop);
       }`;
 
-    const processor = postcss();
-    processor.use(customProperties);
-    processor.use(plugin);
-
-    const result = await processor.process(input);
+    const result = await postcss()
+      .use(customProperties)
+      .use(plugin)
+      .process(input, { from: undefined });
 
     expect(result.css).toBe(expected);
   });
@@ -204,16 +209,77 @@ describe('integration', () => {
       }`;
 
     const expected = stripIndent`
+      :root {
+        --custom-prop: 'prop';
+      }
+
+      .test {
+        content: 'prop';
+        content: var(--custom-prop);
+        content: 'prop';
+        content: var(--custom-prop);
+      }`;
+
+    const result = await postcss()
+      .use(plugin)
+      .use(customProperties)
+      .process(input, { from: undefined });
+
+    expect(result.css).toBe(expected);
+  });
+
+  test('custom properties nested with plugin first [preserve: false]', async () => {
+    const input = stripIndent`
+      :root {
+        --custom-prop: 'prop';
+        --custom-prop-set: {
+          content: var(--custom-prop);
+        };
+      }
+
+      .test {
+        @apply --custom-prop-set;
+        content: var(--custom-prop);
+      }`;
+
+    const expected = stripIndent`
       .test {
         content: 'prop';
         content: 'prop';
       }`;
 
-    const processor = postcss();
-    processor.use(plugin);
-    processor.use(customProperties);
+    const result = await postcss()
+      .use(customProperties({ preserve: false }))
+      .use(plugin)
+      .process(input, { from: undefined });
 
-    const result = await processor.process(input);
+    expect(result.css).toBe(expected);
+  });
+
+  test('custom properties nested with plugin last [preserve: false]', async () => {
+    const input = stripIndent`
+      :root {
+        --custom-prop: 'prop';
+        --custom-prop-set: {
+          content: var(--custom-prop);
+        };
+      }
+
+      .test {
+        @apply --custom-prop-set;
+        content: var(--custom-prop);
+      }`;
+
+    const expected = stripIndent`
+      .test {
+        content: 'prop';
+        content: 'prop';
+      }`;
+
+    const result = await postcss()
+      .use(plugin)
+      .use(customProperties({ preserve: false }))
+      .process(input, { from: undefined });
 
     expect(result.css).toBe(expected);
   });

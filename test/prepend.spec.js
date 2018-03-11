@@ -21,7 +21,7 @@ describe('prepend', () => {
 
       const result = await postcss()
         .use(plugin({ sets }))
-        .process(input);
+        .process(input, { from: undefined });
 
       expect(result.css).toMatchSnapshot();
     });
@@ -45,7 +45,7 @@ describe('prepend', () => {
 
       const result = await postcss()
         .use(plugin({ sets }))
-        .process(input);
+        .process(input, { from: undefined });
 
       expect(result.css).toMatchSnapshot();
     });
@@ -64,7 +64,7 @@ describe('prepend', () => {
       expect(() => {
         postcss() // eslint-disable-line no-unused-expressions
           .use(plugin({ sets }))
-          .process(input).css;
+          .process(input, { from: undefined }).css;
       }).toThrowError(
         'Unrecognized set type `function`, must be an object or string.'
       );
@@ -95,7 +95,7 @@ describe('prepend', () => {
 
     const result = await postcss()
       .use(plugin({ sets }))
-      .process(input);
+      .process(input, { from: undefined });
 
     expect(result.css).toMatchSnapshot();
   });
@@ -121,7 +121,7 @@ describe('prepend', () => {
 
     const result = await postcss()
       .use(plugin({ sets }))
-      .process(input);
+      .process(input, { from: undefined });
 
     expect(result.css).toMatchSnapshot();
   });

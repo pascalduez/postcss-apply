@@ -13,7 +13,7 @@ describe('apply', () => {
 
     const result = await postcss()
       .use(plugin)
-      .process(input);
+      .process(input, { from: undefined });
 
     expect(result.css).toBe(expected);
   });
@@ -24,7 +24,7 @@ describe('apply', () => {
 
     const result = await postcss()
       .use(plugin)
-      .process(input);
+      .process(input, { from: undefined });
 
     expect(result.css).toBe(expected);
   });

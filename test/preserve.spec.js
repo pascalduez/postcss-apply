@@ -13,7 +13,7 @@ describe('the `preserve` option', () => {
 
     const result = await postcss()
       .use(plugin({ preserve: true }))
-      .process(input);
+      .process(input, { from: undefined });
 
     expect(result.css).toBe(expected);
   });

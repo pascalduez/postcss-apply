@@ -14,20 +14,21 @@ const input = read('control/input.css');
 describe('control', () => {
   it('with no options', () =>
     postcss([plugin])
-      .process(input)
+      .process(input, { from: undefined })
       .then(result => {
         expect(result.css).toBe(expected);
       }));
 
   it('with options', () =>
     postcss([plugin({})])
-      .process(input)
+      .process(input, { from: undefined })
       .then(result => {
         expect(result.css).toBe(expected);
       }));
 
   it('PostCSS legacy API', () => {
-    const result = postcss([plugin.postcss]).process(input).css;
+    const result = postcss([plugin.postcss]).process(input, { from: undefined })
+      .css;
 
     expect(result).toBe(expected);
   });
@@ -36,7 +37,7 @@ describe('control', () => {
     const processor = postcss();
     processor.use(plugin);
 
-    const result = await processor.process(input);
+    const result = await processor.process(input, { from: undefined });
 
     expect(result.css).toBe(expected);
 
