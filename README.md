@@ -8,7 +8,7 @@
 
 > [PostCSS] plugin enabling custom property sets references
 
-Refers to [`postcss-custom-properties`](https://github.com/postcss/postcss-custom-properties#postcss-custom-properties-) for DOMless limitations.
+Refer to [`postcss-custom-properties`](https://github.com/postcss/postcss-custom-properties#postcss-custom-properties-) for DOMless limitations.
 
 
 ## Web Platform status
