@@ -27,6 +27,7 @@ type Rule = {
   nodes: Array<Node>,
   parent: Rule,
   raws: Object,
+  last: boolean,
   warn: (result: Result, text: string, opts?: Object) => void,
   clone: () => Rule,
   remove: () => void,
