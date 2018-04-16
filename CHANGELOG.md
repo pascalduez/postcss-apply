@@ -6,7 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [unreleased]
-
+### Added
+  * Remove immediate preceding comments in declarations.
+    Prevent empty `:root` rules with only comments.
+  
 ## [0.9.0] - 2018-03-10
 ### Added
   * Allow both object and string types for the `sets` option.
