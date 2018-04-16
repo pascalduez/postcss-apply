@@ -123,6 +123,7 @@ export default class Visitor {
     this.cache[setName] = newRule;
 
     if (!this.options.preserve) {
+      removeCommentBefore(rule);
       safeRemoveRule(rule);
     }
 
@@ -241,4 +242,15 @@ function safeRemoveRule(rule: Rule) {
   }
 
   rule.remove();
+}
+
+/**
+ * Helper: remove immediate preceding comments.
+ */
+function removeCommentBefore(node: Node) {
+  const previousNode = node.prev();
+
+  if (previousNode && previousNode.type === 'comment') {
+    previousNode.remove();
+  }
 }

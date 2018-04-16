@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`comments should not remove immediatly preceding comments in declarations with the preserve option 1`] = `
+"
+:root {
+  /* This should be pruned */
+  --toolbar-theme: {
+    color: orangeRed;
+  }
+}
+
+.toolbar {
+  color: orangeRed;
+  @apply --toolbar-theme;
+}
+"
+`;
+
+exports[`comments should properly remove immediatly preceding comments in declarations 1`] = `
+"
+.toolbar {
+  color: orangeRed;
+}
+"
+`;
