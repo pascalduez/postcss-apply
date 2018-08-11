@@ -44,8 +44,11 @@ type AtRule = {
 
 export default class Visitor {
   cache = {};
+
   result = {};
+
   options: Options = {};
+
   defaults: Options = {
     preserve: false,
     sets: {},
@@ -92,7 +95,7 @@ export default class Visitor {
    * Collect all `:root` declared property sets and save them.
    */
   collect = (rule: Rule) => {
-    const matches: Array<string> = RE_PROP_SET.exec(rule.selector);
+    const matches = RE_PROP_SET.exec(rule.selector);
 
     if (!matches) {
       return;
@@ -171,7 +174,7 @@ export default class Visitor {
     }
 
     const param: string = getParamValue(atRule.params);
-    const matches: Array<string> = RE_PROP_SET.exec(param);
+    const matches = RE_PROP_SET.exec(param);
 
     if (!matches) {
       return;
@@ -208,7 +211,7 @@ export default class Visitor {
 function isDefinition(rule: Rule): boolean {
   return (
     !!rule.selector &&
-    RE_PROP_SET.exec(rule.selector) &&
+    !!RE_PROP_SET.exec(rule.selector) &&
     (rule.parent && !!rule.parent.selector && rule.parent.selector === ':root')
   );
 }
