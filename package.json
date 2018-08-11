@@ -26,6 +26,9 @@
     "README.md",
     "UNLICENSE"
   ],
+  "engines": {
+    "node": ">=6.0.0"
+  },
   "scripts": {
     "lint": "eslint src/ test/",
     "typecheck": "flow check src/",
@@ -51,7 +54,7 @@
   "dependencies": {
     "babel-runtime": "^6.26.0",
     "balanced-match": "^1.0.0",
-    "postcss": "^6.0.21"
+    "postcss": "^7.0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

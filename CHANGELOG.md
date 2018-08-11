@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [unreleased]
+### Changed
+  * Upgrade PostCSS to version 7.
+    **Breaking** Removes support for Node.js versions lower than 6.
 
 ## [0.10.0] - 2018-04-16
 ### Added
