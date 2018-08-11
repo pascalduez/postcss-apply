@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [unreleased]
+
+## [0.11.0] - 2018-08-11
 ### Changed
   * Upgrade PostCSS to version 7.
     **Breaking** Removes support for Node.js versions lower than 6.
@@ -68,7 +70,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.1.0] - 2015-08-26
   * Initial release.
 
-[Unreleased]: https://github.com/pascalduez/postcss-apply/compare/0.10.0...HEAD
+[Unreleased]: https://github.com/pascalduez/postcss-apply/compare/0.11.0...HEAD
+[0.11.0]: https://github.com/pascalduez/postcss-apply/compare/0.9.0...0.11.0
 [0.10.0]: https://github.com/pascalduez/postcss-apply/compare/0.9.0...0.10.0
 [0.9.0]: https://github.com/pascalduez/postcss-apply/compare/0.8.0...0.9.0
 [0.8.0]: https://github.com/pascalduez/postcss-apply/compare/0.7.0...0.8.0
