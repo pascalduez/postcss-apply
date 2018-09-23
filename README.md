@@ -142,8 +142,8 @@ postcss-apply is [unlicensed](http://unlicense.org/).
 
 [PostCSS]: https://github.com/postcss/postcss
 
-[css-url]: https://jonathantneal.github.io/css-db/#css-apply-rule
-[css-image]: https://jonathantneal.github.io/css-db/badge/css-apply-rule.svg
+[css-url]: https://cssdb.org#rejected
+[css-image]: https://img.shields.io/badge/cssdb-rejected-red.svg?style=flat-square
 [npm-url]: https://www.npmjs.org/package/postcss-apply
 [npm-image]: http://img.shields.io/npm/v/postcss-apply.svg?style=flat-square
 [travis-url]: https://travis-ci.org/pascalduez/postcss-apply?branch=master
