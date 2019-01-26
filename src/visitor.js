@@ -1,4 +1,3 @@
-// @flow
 /* eslint-disable no-param-reassign */
 
 import balanced from 'balanced-match';
@@ -7,54 +6,17 @@ import { kebabify, isPlainObject } from './utils';
 
 const RE_PROP_SET = /^(--)([\w-]+)(\s*)([:]?)$/;
 
-export type Options = {
-  preserve?: boolean,
-  sets?: {
-    [key: string]: {
-      [key: string]: string,
-    },
-  },
-};
-
-type Node = Object;
-type Decl = Object;
-type Result = Object;
-
-type Rule = {
-  type: string,
-  selector: string,
-  selectors: Array<string>,
-  nodes: Array<Node>,
-  parent: Rule,
-  raws: Object,
-  last: boolean,
-  warn: (result: Result, text: string, opts?: Object) => void,
-  clone: () => Rule,
-  remove: () => void,
-  append: () => void,
-  prepend: (children: Node | Array<Node> | Object | string) => void,
-  insertBefore: (node: Node, add: Node | Array<Node> | Object | string) => void,
-  replaceWith: (nodes: Array<Node>) => void,
-  walkDecls: (rule: Decl) => void,
-};
-
-type AtRule = {
-  params: string,
-} & Rule;
-
 export default class Visitor {
   cache = {};
-
   result = {};
+  options = {};
 
-  options: Options = {};
-
-  defaults: Options = {
+  defaults = {
     preserve: false,
     sets: {},
   };
 
-  constructor(options: Options) {
+  constructor(options) {
     this.options = {
       ...this.defaults,
       ...options,
@@ -68,11 +30,9 @@ export default class Visitor {
   prepend = () => {
     const { sets } = this.options;
 
-    // $FlowFixMe
-    Object.keys(sets).forEach((setName: string) => {
-      const newRule: Rule = postcss.rule({ selector: `--${setName}` });
+    Object.keys(sets).forEach(setName => {
+      const newRule = postcss.rule({ selector: `--${setName}` });
 
-      // $FlowFixMe
       const set = sets[setName];
 
       if (typeof set === 'string') {
@@ -94,15 +54,15 @@ export default class Visitor {
   /**
    * Collect all `:root` declared property sets and save them.
    */
-  collect = (rule: Rule) => {
+  collect = rule => {
     const matches = RE_PROP_SET.exec(rule.selector);
 
     if (!matches) {
       return;
     }
 
-    const setName: string = matches[2];
-    const { parent }: Rule = rule;
+    const setName = matches[2];
+    const { parent } = rule;
 
     if (parent.selector !== ':root') {
       rule.warn(
@@ -122,7 +82,7 @@ export default class Visitor {
     // Custom property sets override each other wholly,
     // rather than cascading together like colliding style rules do.
     // @see: https://tabatkins.github.io/specs/css-apply-rule/#defining
-    const newRule: Rule = rule.clone();
+    const newRule = rule.clone();
     this.cache[setName] = newRule;
 
     if (!this.options.preserve) {
@@ -139,8 +99,8 @@ export default class Visitor {
    * Replace nested `@apply` at-rules declarations.
    */
   resolveNested = () => {
-    Object.keys(this.cache).forEach((rule: string) => {
-      this.cache[rule].walkAtRules('apply', (atRule: AtRule) => {
+    Object.keys(this.cache).forEach(rule => {
+      this.cache[rule].walkAtRules('apply', atRule => {
         this.resolve(atRule);
 
         // @TODO honor `preserve` option.
@@ -152,8 +112,8 @@ export default class Visitor {
   /**
    * Replace `@apply` at-rules declarations with provided custom property set.
    */
-  resolve = (atRule: AtRule) => {
-    let ancestor: Rule = atRule.parent;
+  resolve = atRule => {
+    let ancestor = atRule.parent;
 
     while (ancestor && ancestor.type !== 'rule') {
       ancestor = ancestor.parent;
@@ -173,15 +133,15 @@ export default class Visitor {
       return;
     }
 
-    const param: string = getParamValue(atRule.params);
+    const param = getParamValue(atRule.params);
     const matches = RE_PROP_SET.exec(param);
 
     if (!matches) {
       return;
     }
 
-    const setName: string = matches[2];
-    const { parent }: Rule = atRule;
+    const setName = matches[2];
+    const { parent } = atRule;
 
     if (!(setName in this.cache)) {
       atRule.warn(
@@ -208,7 +168,7 @@ export default class Visitor {
 /**
  * Helper: return whether the rule is a custom property set definition.
  */
-function isDefinition(rule: Rule): boolean {
+function isDefinition(rule) {
   return (
     !!rule.selector &&
     !!RE_PROP_SET.exec(rule.selector) &&
@@ -220,15 +180,15 @@ function isDefinition(rule: Rule): boolean {
  * Helper: allow parens usage in `@apply` AtRule declaration.
  * This is for Polymer integration.
  */
-function getParamValue(param: string): string {
+function getParamValue(param) {
   return /^\(/.test(param) ? balanced('(', ')', param).body : param;
 }
 
 /**
  * Helper: remove excessive declarations indentation.
  */
-function cleanIndent(rule: Rule) {
-  rule.walkDecls((decl: Decl) => {
+function cleanIndent(rule) {
+  rule.walkDecls(decl => {
     if (typeof decl.raws.before === 'string') {
       decl.raws.before = decl.raws.before.replace(/[^\S\n\r]{2,}/, '  ');
     }
@@ -239,7 +199,7 @@ function cleanIndent(rule: Rule) {
  * Helper: correctly handle property sets removal and semi-colons.
  * @See: postcss/postcss#1014
  */
-function safeRemoveRule(rule: Rule) {
+function safeRemoveRule(rule) {
   if (rule === rule.parent.last && rule.raws.ownSemicolon) {
     rule.parent.raws.semicolon = true;
   }
@@ -250,7 +210,7 @@ function safeRemoveRule(rule: Rule) {
 /**
  * Helper: remove immediate preceding comments.
  */
-function removeCommentBefore(node: Node) {
+function removeCommentBefore(node) {
   const previousNode = node.prev();
 
   if (previousNode && previousNode.type === 'comment') {

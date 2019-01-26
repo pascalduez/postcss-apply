@@ -3,13 +3,10 @@ root: true
 parser: "babel-eslint"
 extends:
   - "airbnb-base"
-  - "plugin:flowtype/recommended"
   - "plugin:jest/recommended"
   - "prettier"
-  - "prettier/flowtype"
 
 plugins:
-  - "flowtype"
   - "jest"
 
 env:
@@ -18,6 +15,7 @@ env:
 rules:
   one-var: off
   prefer-const: off
+  lines-between-class-members: off
   no-use-before-define:
     - error
     - functions: false

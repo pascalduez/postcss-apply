@@ -1,11 +1,5 @@
-// @flow
-
-export function kebabify(prop: string): string {
-  const upperToHyphen = (
-    match: string,
-    offset: number,
-    string: string
-  ): string => {
+export function kebabify(prop) {
+  const upperToHyphen = (match, offset, string) => {
     const addDash = offset && string.charAt(offset - 1) !== '-';
 
     return (addDash ? '-' : '') + match.toLowerCase();
@@ -14,5 +8,5 @@ export function kebabify(prop: string): string {
   return prop.replace(/[A-Z]/g, upperToHyphen);
 }
 
-export const isPlainObject = (arg: any) =>
+export const isPlainObject = arg =>
   Object.prototype.toString.call(arg) === '[object Object]';

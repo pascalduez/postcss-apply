@@ -1,20 +1,16 @@
-// @flow
 import { plugin } from 'postcss';
-import Visitor, { type Options } from './visitor';
+import Visitor from './visitor';
 import { name } from '../package.json';
 
-export default plugin(
-  name,
-  (options: Options) => (css: Object, result: Object) => {
-    const visitor = new Visitor(options);
-    visitor.result = result;
+export default plugin(name, options => (css, result) => {
+  const visitor = new Visitor(options);
+  visitor.result = result;
 
-    visitor.prepend();
+  visitor.prepend();
 
-    css.walkRules(visitor.collect);
+  css.walkRules(visitor.collect);
 
-    visitor.resolveNested();
+  visitor.resolveNested();
 
-    css.walkAtRules('apply', visitor.resolve);
-  }
-);
+  css.walkAtRules('apply', visitor.resolve);
+});
