@@ -1,18 +1,14 @@
 language: node_js
 
 node_js:
-  - '6'
-  - '8'
-  - 'stable'
+  - lts/*
+  - stable
 
 sudo: false
 
 git:
   depth: 10
 
-before_script:
-  - yarn global add codecov
-
 script: yarn run test:ci
 
-after_success: codecov
+after_success: yarn codecov
