@@ -16,6 +16,8 @@ env:
   jest: true
 
 rules:
+  one-var: off
+  prefer-const: off
   no-use-before-define:
     - error
     - functions: false

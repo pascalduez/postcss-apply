@@ -65,7 +65,7 @@ describe('prepend', () => {
         postcss() // eslint-disable-line no-unused-expressions
           .use(plugin({ sets }))
           .process(input, { from: undefined }).css;
-      }).toThrowError(
+      }).toThrow(
         'Unrecognized set type `function`, must be an object or string.'
       );
     });

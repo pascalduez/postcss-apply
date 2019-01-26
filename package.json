@@ -26,57 +26,49 @@
     "README.md",
     "UNLICENSE"
   ],
-  "engines": {
-    "node": ">=6.0.0"
-  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "scripts": {
     "lint": "eslint src/ test/",
-    "typecheck": "flow check src/",
-    "typecheck:coverage": "flow-coverage-report -t text -t html -i 'src/**/*.js'",
-    "validate": "run-s lint typecheck",
+    "validate": "run-s lint",
     "test": "jest",
-    "test:cover": "run-s 'test --coverage'",
-    "test:cover:browse": "run-s test:cover && opn coverage/lcov-report/index.html",
-    "test:ci": "run-s lint test:cover",
+    "test:ci": "run-s validate test",
     "develop": "babel-node develop/",
-    "clean": "rm -rf dist/",
-    "build:js": "babel src/ -d dist/",
-    "build": "run-s clean build:*",
-    "prepublishOnly": "run-s validate test:cover",
-    "prepare": "run-s build"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "collectCoverageFrom": [
-      "src/*.js"
-    ]
+    "prebuild": "rm -rf dist/",
+    "build": "rollup -c",
+    "prepare": "run-s build",
+    "prepublishOnly": "run-s validate test"
   },
   "dependencies": {
-    "babel-runtime": "^6.26.0",
     "balanced-match": "^1.0.0",
-    "postcss": "^7.0.2"
+    "postcss": "^7.0.14"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-eslint": "^8.2.6",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-object-entries": "^1.0.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-flow": "^6.23.0",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.3.0",
+    "@babel/plugin-proposal-do-expressions": "^7.2.0",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-flow": "^7.0.0",
+    "babel-eslint": "^10.0.1",
     "common-tags": "^1.8.0",
-    "eslint": "^5.3.0",
-    "eslint-config-airbnb-base": "^13.0.0",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-flowtype": "^2.50.0",
-    "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-jest": "^21.20.2",
-    "flow-bin": "^0.78.0",
-    "flow-coverage-report": "^0.5.0",
-    "jest-cli": "^23.5.0",
-    "npm-run-all": "^4.1.3",
-    "opn-cli": "^3.1.0",
-    "postcss-custom-properties": "^7.0.0",
-    "postcss-reporter": "^5.0.0"
+    "eslint": "^5.12.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-flowtype": "^3.2.1",
+    "eslint-plugin-import": "^2.15.0",
+    "eslint-plugin-jest": "^22.1.3",
+    "flow-bin": "^0.91.0",
+    "flow-coverage-report": "^0.6.1",
+    "jest": "^24.0.0",
+    "npm-run-all": "^4.1.5",
+    "opn-cli": "^4.0.0",
+    "postcss-custom-properties": "^8.0.9",
+    "postcss-reporter": "^6.0.1",
+    "rollup": "^1.1.2",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-json": "^3.1.0",
+    "rollup-plugin-node-resolve": "^4.0.0"
   }
 }

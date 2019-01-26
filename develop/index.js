@@ -5,15 +5,16 @@ import postcss from 'postcss';
 import reporter from 'postcss-reporter';
 import plugin from '../src';
 
-const read = name =>
+let from, to;
+let read = name =>
   fs.readFileSync(path.join(process.cwd(), 'test', 'fixture', name), 'utf8');
 
-const input = read('apply/input.css');
+let input = read('apply/input.css');
 
 postcss()
   .use(plugin)
   .use(reporter)
-  .process(input)
+  .process(input, { from, to })
   .then(result => {
     console.log(result.css);
   })
