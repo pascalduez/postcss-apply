@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [unreleased]
 
+## [0.12.0] - 2019-02-27
+### Changed
+  * Upgrade Babel.
+  * Remove `babel-runtime` dependency.
+
 ## [0.11.0] - 2018-08-11
 ### Changed
   * Upgrade PostCSS to version 7.
