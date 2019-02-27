@@ -27,7 +27,7 @@
     "UNLICENSE"
   ],
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "module": "dist/index.m.js",
   "scripts": {
     "lint": "eslint src/ test/",
     "validate": "run-s lint",
