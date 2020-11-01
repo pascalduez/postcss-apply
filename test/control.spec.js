@@ -26,13 +26,6 @@ describe('control', () => {
         expect(result.css).toBe(expected);
       }));
 
-  it('PostCSS legacy API', () => {
-    const result = postcss([plugin.postcss]).process(input, { from: undefined })
-      .css;
-
-    expect(result).toBe(expected);
-  });
-
   it('PostCSS API', async () => {
     const processor = postcss();
     processor.use(plugin);

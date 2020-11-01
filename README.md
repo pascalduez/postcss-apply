@@ -27,7 +27,7 @@ Refer to following links for more infos:
 ## Installation
 
 ```
-npm install postcss-apply --save-dev
+npm install postcss postcss-apply --save-dev
 ```
 
 

@@ -3,7 +3,7 @@ import { stripIndent } from 'common-tags';
 import customProperties from 'postcss-custom-properties';
 import plugin from '../src';
 
-describe('integration', () => {
+describe.skip('integration', () => {
   test('custom properties declaration without plugin', async () => {
     const input = stripIndent`
       :root {

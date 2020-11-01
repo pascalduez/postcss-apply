@@ -1,16 +1,24 @@
-import { plugin } from 'postcss';
 import Visitor from './visitor';
 import { name } from '../package.json';
 
-export default plugin(name, options => (css, result) => {
-  const visitor = new Visitor(options);
-  visitor.result = result;
+function creator(options) {
+  return {
+    postcssPlugin: name,
+    Once: (root, { result }) => {
+      const visitor = new Visitor(options);
+      visitor.result = result;
 
-  visitor.prepend();
+      visitor.prepend();
 
-  css.walkRules(visitor.collect);
+      root.walkRules(visitor.collect);
 
-  visitor.resolveNested();
+      visitor.resolveNested();
 
-  css.walkAtRules('apply', visitor.resolve);
-});
+      root.walkAtRules('apply', visitor.resolve);
+    },
+  };
+}
+
+creator.postcss = true;
+
+export default creator;
