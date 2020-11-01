@@ -3,26 +3,26 @@
     background-color: hsl(120, 70%, 95%);
     border-radius: 4px;
     border: 1px solid var(--theme-color late);
-  };
+  }
   --toolbar-title-theme: {
     color: green;
-  };
+  }
   --with-parens: {
     color: tomato;
-  };
+  }
   --nested-set-one: {
     @apply --toolbar-theme;
-  };
+  }
   --nested-set-two: {
     @apply --with-parens;
     @apply --toolbar-title-theme;
 
     color: orange;
-  };
+  }
   --override: {
     color: red;
     background-color: red;
-  };
+  }
 }
 
 .toolbar {
@@ -34,7 +34,7 @@
 }
 
 .with-parens {
-  @apply(--with-parens);
+  @apply (--with-parens);
 }
 
 .nested-set-one {
@@ -52,7 +52,7 @@
 :root {
   --override: {
     color: blue;
-  };
+  }
 }
 
 .override-after {

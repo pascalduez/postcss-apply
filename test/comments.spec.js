@@ -18,9 +18,7 @@ let from;
 
 describe('comments', () => {
   it('should remove immediate preceding comments in declarations', async () => {
-    const result = await postcss()
-      .use(plugin)
-      .process(input, { from });
+    const result = await postcss().use(plugin).process(input, { from });
 
     expect(result.css).toMatchSnapshot();
   });

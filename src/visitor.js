@@ -172,7 +172,9 @@ function isDefinition(rule) {
   return (
     !!rule.selector &&
     !!RE_PROP_SET.exec(rule.selector) &&
-    (rule.parent && !!rule.parent.selector && rule.parent.selector === ':root')
+    rule.parent &&
+    !!rule.parent.selector &&
+    rule.parent.selector === ':root'
   );
 }
 

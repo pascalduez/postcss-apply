@@ -2,7 +2,7 @@
   --override: {
     color: red;
     background-color: red;
-  };
+  }
 }
 
 .override-before {
@@ -12,7 +12,7 @@
 :root {
   --override: {
     color: blue;
-  };
+  }
 }
 
 .override-after {

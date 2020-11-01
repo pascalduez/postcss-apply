@@ -1,7 +1,7 @@
 :root {
   --should-be-removed: {
     content: 'gone';
-  };
+  }
 }
 
 .control {
@@ -15,7 +15,7 @@
 .should-warn--not-root {
   --toolbar-title-theme: {
     color: green;
-  };
+  }
 }
 
 .should-warn--not-declared {
@@ -24,6 +24,6 @@
 
 --should-warn-about-root-scope-and-be-removed: {
   color: green;
-};
+}
 
 @apply --should-warn-about-root-scope-and-be-removed;
