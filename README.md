@@ -38,12 +38,12 @@ const fs = require('fs');
 const postcss = require('postcss');
 const apply = require('postcss-apply');
 
-const input = fs.readFileSync('input.css', 'utf8');
+let input = fs.readFileSync('input.css', 'utf8');
 
 postcss()
   .use(apply)
   .process(input)
-  .then((result) => {
+  .then(result => {
     fs.writeFileSync('output.css', result.css);
   });
 ```
@@ -150,8 +150,4 @@ postcss-apply is [unlicensed](http://unlicense.org/).
 [travis-image]: http://img.shields.io/travis/pascalduez/postcss-apply.svg?style=flat-square
 [codecov-url]: https://codecov.io/gh/pascalduez/postcss-apply
 [codecov-image]: https://img.shields.io/codecov/c/github/pascalduez/postcss-apply.svg?style=flat-square
-[depstat-url]: https://david-dm.org/pascalduez/postcss-apply
-[depstat-image]: https://david-dm.org/pascalduez/postcss-apply.svg?style=flat-square
-[license-image]: http://img.shields.io/npm/l/postcss-apply.svg?style=flat-square
-[license-url]: UNLICENSE
 [spec]: https://tabatkins.github.io/specs/css-apply-rule
