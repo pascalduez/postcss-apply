@@ -22,6 +22,7 @@ Refer to following links for more infos:
   * https://github.com/w3c/webcomponents/issues/300#issuecomment-276210974  
   * http://www.xanthir.com/b4o00
   * https://github.com/w3c/csswg-drafts/issues/1047
+  * https://chromium.googlesource.com/chromium/src/+/5874fca7324e4523a4bdecc8999bdadfdb6c4eff
 
 
 ## Installation
