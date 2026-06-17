@@ -16,7 +16,7 @@
   "bugs": "https://github.com/pascalduez/postcss-apply/issues",
   "repository": {
     "type": "git",
-    "url": "git://github.com/pascalduez/postcss-apply.git"
+    "url": "git+https://github.com/pascalduez/postcss-apply.git"
   },
   "license": "Unlicense",
   "files": [
